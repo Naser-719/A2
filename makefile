@@ -3,7 +3,7 @@
 CC=gcc
 CFLAGS=-Wall -g -std=c11 -lm -lc -lncurses -ltinfo
 
-TARGET=Skyfall
+TARGET=skyfall
 
 OBJS=npc.o
 
@@ -12,6 +12,9 @@ all: $(TARGET)
 
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $@ 
+	
+skyfall: skyfall.c skyfall.h
+	$(CC) $(CFLAGS) -c $<
 
 npc.o: npc.c  npc.h 
 	$(CC) $(CFLAGS) -c $<
