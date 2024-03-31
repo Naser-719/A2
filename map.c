@@ -25,7 +25,7 @@ void displayInstructions(WINDOW *win) {
 
     // Draw the borders and print instructions
     box(win, '|', '-'); // Draw box borders
-    mvwprintw(win, 1, 1, "Instructions: Dodge the blocks to survive.");
+    mvwprintw(win, 1, 1, "Instructions: Dodge the blocks to survive. Press 'p' to pause.");
     wrefresh(win); // Refresh to show instructions
 }
 
@@ -50,7 +50,7 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
 
     while (1) {
         if (paused) {
-            mvwprintw(message_win, 2, 2, "Game is paused. Press 'p' to continue.");
+            mvwprintw(message_win, 1, 1, "Game is paused. Press 'p' to continue.");
             wrefresh(message_win);
             do {
                 ch = wgetch(game_win); // Wait for 'p' to unpause
