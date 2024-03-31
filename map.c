@@ -1,12 +1,13 @@
 #include <ncurses.h>
 #include <stdbool.h>
 
-// Function declarations
+/* Function declarations */
 void startScreen();
 void displayInstructions(WINDOW *win);
 void game_loop(WINDOW *game_win, WINDOW *message_win);
 void display_level(WINDOW *win, int level);
 
+/* Displays the start screen with a prompt for the player to press any key to start the game. */
 void startScreen() {
     clear();
     printw("Press any key to start...\n");
@@ -14,89 +15,88 @@ void startScreen() {
     getch();
 }
 
+/* 
+   Displays game instructions within a specified window.
+   This includes drawing a box around the instructions and printing the text inside.
+*/
 void displayInstructions(WINDOW *win) {
-    int start_row = 15; // Start half the height from the top
-    int end_row = start_row + 14; // Half the height of the map for the instructions box
-    int start_col = 81; // Start right after the map, which is 80 characters wide
-    int end_col = 110; // End column of the instructions box
-
-    // Assuming instructions window is separate and has been correctly sized and positioned
-    werase(win); // Clear previous instructions
-
-    // Draw the borders and print instructions
-    box(win, '|', '-'); // Draw box borders
-    mvwprintw(win, 1, 1, "Instructions: Dodge the blocks to survive. Press 'p' to pause.");
-    wrefresh(win); // Refresh to show instructions
+    werase(win);
+    box(win, '|', '-');
+    mvwprintw(win, 1, 1, "Instructions: Dodge the blocks to survive.");
+    wrefresh(win);
 }
 
+/* 
+   Clears the given window and draws the level layout, including boundaries.
+   The level's layout can be customized based on the level number provided.
+*/
 void display_level(WINDOW *win, int level) {
-    werase(win); // Clear the window
-    
-    // Draw the level boundaries with '*'
-    box(win, '*', '*'); // Use '*' for the box borders
-    
-    // Optionally, add level-specific objects here
-    
-    wrefresh(win); // Refresh the window to display the new content
+    werase(win);
+    box(win, '*', '*');
+    wrefresh(win);
 }
 
+/* 
+   The main game loop which handles game state, including pausing and quitting.
+   It responds to user input for game control (e.g., 'p' to pause, 'q' to quit) and refreshes
+   the game window to reflect any changes or player actions.
+*/
 void game_loop(WINDOW *game_win, WINDOW *message_win) {
     int ch;
     bool paused = false;
-    int level = 1; // Starting level
+    int level = 1;
 
-    display_level(game_win, level); // Display the initial level
-    displayInstructions(message_win); // Display instructions in the message window
+    display_level(game_win, level);
+    displayInstructions(message_win);
 
     while (1) {
         if (paused) {
-            mvwprintw(message_win, 1, 1, "Game is paused. Press 'p' to continue.");
+            mvwprintw(message_win, 2, 2, "Game is paused. Press 'p' to continue.");
             wrefresh(message_win);
             do {
-                ch = wgetch(game_win); // Wait for 'p' to unpause
+                ch = wgetch(game_win);
             } while (ch != 'p');
             paused = false;
-            werase(message_win); // Clear the pause message
-            displayInstructions(message_win); // Redisplay instructions
+            werase(message_win);
+            displayInstructions(message_win);
         } else {
-            ch = wgetch(game_win); // Get user input
+            ch = wgetch(game_win);
 
             if (ch == 'q') {
-                // Ask if the user really wants to quit
                 werase(message_win);
                 mvwprintw(message_win, 1, 1, "Do you want to quit? (y/n) ");
                 wrefresh(message_win);
                 do {
-                    ch = wgetch(message_win); // Wait for 'y' or 'n'
+                    ch = wgetch(message_win);
                 } while (ch != 'y' && ch != 'n');
 
                 if (ch == 'y') {
-                    break; // Exit the loop and end the game
+                    break;
                 } else {
-                    werase(message_win); // Clear the quit message
-                    displayInstructions(message_win); // Redisplay instructions
+                    werase(message_win);
+                    displayInstructions(message_win);
                 }
             } else if (ch == 'p') {
-                paused = true; // Pause the game
+                paused = true;
             }
         }
-
-        // TODO: Add the rest of your game logic here
-
-        // Refresh the game window to show any updates
         wrefresh(game_win);
     }
 }
 
+/* 
+   The main function sets up the ncurses environment, creates windows for the game and instructions,
+   runs the game loop, and then cleans up before exiting.
+*/
 int main() {
     initscr();
     cbreak();
     noecho();
-    keypad(stdscr, TRUE); // Enable function keys
+    keypad(stdscr, TRUE);
 
     int rows = 30, cols = 80;
     WINDOW *game_win = newwin(rows, cols, 0, 0);
-    WINDOW *message_win = newwin(5, cols, rows, 0); // Adjusted height for instructions
+    WINDOW *message_win = newwin(5, cols, rows, 0);
 
     startScreen();
     game_loop(game_win, message_win);
