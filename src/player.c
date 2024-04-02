@@ -15,17 +15,30 @@ void movePlayer(Player *player, int deltaX, int deltaY) {
     player->y += deltaY;
 
     // Keep player within the horizontal boundaries
-    if (player->x < 1) {
-        player->x = 1;
-    } else if (player->x > SCREEN_WIDTH - 2) {
-        player->x = SCREEN_WIDTH - 2;
+    if (player->x < 2) {
+        player->x = 2;
+    } else if (player->x > SCREEN_WIDTH - 4) {
+        player->x = SCREEN_WIDTH - 4;
     }
 
     // Keep player within the vertical boundaries
-    if (player->y < 1) {
-        player->y = 1;
-    } else if (player->y > SCREEN_HEIGHT - 2) {
-        player->y = SCREEN_HEIGHT - 2;
+    if (player->y < 4) {
+        player->y = 4;
+    } else if (player->y > SCREEN_HEIGHT - 1) {
+        player->y = SCREEN_HEIGHT - 1;
+    }
+}
+void drawPlayer(WINDOW *win, const Player *player) {
+    // Ensure we don't draw outside of the boundaries.
+    // Clear the screen only where it's needed, instead of using clear().
+
+    // Draw the head
+    if (player->y - 3 >= 1) {
+        mvwprintw(win, player->y - 3, player->x, "O ");
+    }
+    // Draw arms and torso
+    if (player->y - 2 >= 1) {
+        mvwprintw(win, player->y - 2, player->x - 1, "/|\\");
     }
 }
 

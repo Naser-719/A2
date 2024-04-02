@@ -55,6 +55,7 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
     initPlayer(&player); // Initialize the player position
     keypad(game_win, TRUE); // Make sure this line is here to capture arrow keys
 
+
     display_level(game_win, level); // Display the initial level
     drawPlayer(game_win, &player); // Draw the player on the game window
     displayInstructions(message_win); // Display instructions in the message window

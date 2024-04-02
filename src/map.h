@@ -16,3 +16,4 @@ void game_loop(WINDOW *game_win, WINDOW *message_win);
 void display_level(WINDOW *win, int level);
 
 #endif // MAP_H
+
