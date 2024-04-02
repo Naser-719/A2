@@ -22,6 +22,11 @@ npc.o: npc.c  npc.h
 blocks.o: blocks.c blocks.h
 	$(CC) $(CFLAGS) -c $<
 
+
+blocks_test: blocks.o test_blocks.c
+	$(CC) $(CFLAGS) test_blocks.c blocks.o -o blocks_test
+
+
 Debug: $(OBJ) 
 	$(CC) $(CFLAGS) $^ -o $@
 

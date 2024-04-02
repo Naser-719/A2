@@ -9,8 +9,12 @@
 #ifndef BLOCKS_H
 #define BLOCKS_H
 
+
 #include <ncurses.h>
 #include <stdbool.h>
+
+#define MAX_BLOCKS 10
+
 
 /**
  * @struct Block
@@ -27,6 +31,9 @@ typedef struct {
     int speed;  ///< The speed at which the block falls.
     bool active;///< Indicates whether the block is active (falling) or not.
 } Block;
+
+
+extern Block blocks[MAX_BLOCKS];
 
 /**
  * @brief Initialize all blocks in the game.
@@ -76,5 +83,29 @@ void render_blocks(WINDOW *win);
  * @note Assumes that the player is a rectangle for the purposes of collision detection.
  */
 bool check_collision_with_player(int playerX, int playerY, int playerWidth, int playerHeight);
+
+/**
+ * @brief **Spawns a new block** by finding an *inactive* block and initializing it.
+ *
+ * This function iterates through the global `blocks` array to locate an
+ * inactive block. When it finds one, it sets the block with random dimensions
+ * and a predefined speed, then marks it as active.
+ *
+ * @attention Ensure that the random number generator is initialized with `srand()`
+ * before calling this function to ensure that block sizes are truly random.
+ *
+ * @note The function assumes that `MAX_BLOCKS` is defined and represents the maximum
+ * number of blocks that can be active at any one time.
+ *
+ * @note This function relies on the global array `blocks`.
+ *
+ * @warning This function will activate the first inactive block it finds and will not
+ * activate more than one block per call.
+ *
+ * @see create_block
+ * @see MAX_BLOCKS
+ * @see blocks
+ */
+void spawn_new_block();
 
 #endif // BLOCKS_H

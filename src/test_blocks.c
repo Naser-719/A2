@@ -1,56 +1,56 @@
 #include "blocks.h"
 #include <ncurses.h>
-#include <unistd.h>
+#include <stdlib.h> // for srand
+#include <time.h>   // for time and nanosleep
 
-#define DELAY 30000 // Delay between moves (in microseconds)
+#define EASY_MODE_DELAY_MS 120
+#define HARD_MODE_DELAY_MS 60
+#define HARD_MODE_START 5 // Time in seconds to switch to hard mode
+
+struct timespec get_mode_delay(int mode);
 
 int main() {
     int ch;
+    int mode = 0; // Start in easy mode
+    time_t start_time = time(NULL);
 
     // Initialize ncurses
     initscr();
     noecho();
     cbreak();
-    keypad(stdscr, TRUE); // Enable keyboard input
-    timeout(0);           // Non-blocking input
-    curs_set(0);          // Hide the cursor
+    keypad(stdscr, TRUE);
+    timeout(0);
+    curs_set(0);
 
-    // Seed the random number generator
     srand(time(NULL));
-
-    // Initialize the blocks
     initialize_blocks();
 
-    // Main game loop
     while (true) {
-        // Create a block for testing purposes
-        // In a real game, you'd have logic to determine when to create blocks
-        create_block(0, 3, 1, 1);
-
-        // Update blocks' position
-        update_blocks_position();
-
-        // Clear the screen
-        clear();
-
-        // Render blocks
-        render_blocks(stdscr);
-
-        // Refresh to draw everything on the screen
-        refresh();
-
-        // Check for user input
-        ch = getch();
-        if (ch == 'q') { // Quit the game if 'q' is pressed
-            break;
+        if (difftime(time(NULL), start_time) >= HARD_MODE_START && mode == 0) {
+            mode = 1; // Switch to hard mode
         }
 
-        // Delay before the next loop iteration
-        usleep(DELAY);
+        spawn_new_block();
+        update_blocks_position();
+        clear();
+        render_blocks(stdscr);
+        refresh();
+
+        struct timespec ts = get_mode_delay(mode);
+        nanosleep(&ts, NULL);
+
+        ch = getch();
+        if (ch == 'q') break;
     }
 
-    // End ncurses
     endwin();
-
     return 0;
+}
+
+struct timespec get_mode_delay(int mode) {
+    int delay_ms = mode == 0 ? EASY_MODE_DELAY_MS : HARD_MODE_DELAY_MS;
+    struct timespec ts;
+    ts.tv_sec = delay_ms / 1000;
+    ts.tv_nsec = (delay_ms % 1000) * 1000000L; // Convert milliseconds to nanoseconds
+    return ts;
 }

@@ -1,21 +1,17 @@
 #include <ncurses.h>
 #include <stdlib.h>
+#include "blocks.h"
 
 // Define constants for the game area
 #define GAME_WIDTH 80
 #define GAME_HEIGHT 30
 #define MAX_BLOCKS 10
 
-// Define a struct for the blocks
-typedef struct {
-    int width, height;
-    int posX, posY;
-    int speed;
-    bool active;
-} Block;
 
-// Global array of blocks
-Block blocks[MAX_BLOCKS];
+
+
+Block blocks[MAX_BLOCKS]; 
+
 
 // Function to initialize blocks
 void initialize_blocks() {
@@ -40,15 +36,16 @@ void create_block(int index, int width, int height, int speed) {
 void update_blocks_position() {
     for (int i = 0; i < MAX_BLOCKS; ++i) {
         if (blocks[i].active) {
-            blocks[i].posY += blocks[i].speed;
+            blocks[i].posY += blocks[i].speed; // Move block down
 
             // If the block is off the screen, deactivate it
-            if (blocks[i].posY > GAME_HEIGHT) {
+            if (blocks[i].posY >= GAME_HEIGHT) {
                 blocks[i].active = false;
             }
         }
     }
 }
+
 
 // Function to draw the blocks on the screen
 void render_blocks(WINDOW *win) {
@@ -56,7 +53,7 @@ void render_blocks(WINDOW *win) {
         if (blocks[i].active) {
             for (int y = 0; y < blocks[i].height; ++y) {
                 for (int x = 0; x < blocks[i].width; ++x) {
-                    mvwaddch(win, blocks[i].posY + y, blocks[i].posX + x, '#');
+                    mvwaddch(win, blocks[i].posY + y, blocks[i].posX + x, '.'); // Use '.' for larger blocks
                 }
             }
         }
@@ -81,3 +78,15 @@ bool check_collision_with_player(int playerX, int playerY, int playerWidth, int 
 
 
 
+// Find an inactive block and initialize it
+void spawn_new_block() {
+    for (int i = 0; i < MAX_BLOCKS; i++) {
+        if (!blocks[i].active) {
+            int block_width = rand() % 4 + 1; // Block width between 1 and 4
+            int block_height = rand() % 3 + 1; // Block height between 1 and 3
+            int block_speed = 1; // Speed of block
+            create_block(i, block_width, block_height, block_speed);
+            break; // Break after finding the first inactive block
+        }
+    }
+}
