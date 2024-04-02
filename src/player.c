@@ -40,22 +40,13 @@ void drawPlayer(WINDOW *win, const Player *player) {
     if (player->y - 2 >= 1) {
         mvwprintw(win, player->y - 2, player->x - 1, "/|\\");
     }
-    // Draw legs
-    if (player->y - 1 >= 1) {
-        mvwprintw(win, player->y - 1, player->x - 1, "/ \\");
-    }
-    
-    wrefresh(win); // Refresh the window to display the new content.
 }
 
-
-/*
-void drawPlayer(WINDOW *win,const Player *player) {
-    clear(); // Clear the screen before redrawing
-    mvwprintw(win,player->y - 3, player->x, "O "); // Draw the head
-    mvwprintw(win,player->y - 2, player->x - 1, "/|\\"); // Draw arms and torso
-    mvwprintw(win,player->y - 1, player->x - 1, "/ \\"); // Draw legs
-    wrefresh(win);
+void drawPlayer(WINDOW *win, const Player *player) {
+    // Only draw the player, do not clear the whole screen
+    mvwprintw(win, player->y - 3, player->x, "O ");  // Draw the head
+    mvwprintw(win, player->y - 2, player->x - 1, "/|\\"); // Draw arms and torso
+    mvwprintw(win, player->y - 1, player->x - 1, "/ \\"); // Draw legs
+    wrefresh(win); // Only refresh the window, do not clear
 }
-*/
 
