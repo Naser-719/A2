@@ -18,7 +18,7 @@ void startScreen() {
 void displayInstructions(WINDOW *win) {
     int start_row = 15; // Start half the height from the top
     int end_row = start_row + 14; // Half the height of the map for the instructions box
-    int start_col = 81; // Start right after the map, which is 80 characters wide
+    int start_col = 80; // Start right after the map, which is 80 characters wide
     int end_col = 110; // End column of the instructions box
 
     // Assuming instructions window is separate and has been correctly sized and positioned
@@ -49,6 +49,7 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
 
     initPlayer(&player); // Initialize the player position
     keypad(game_win, TRUE); // Make sure this line is here to capture arrow keys
+
 
     display_level(game_win, level); // Display the initial level
     drawPlayer(game_win, &player); // Draw the player on the game window
