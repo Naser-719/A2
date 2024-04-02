@@ -1,12 +1,8 @@
 #include <ncurses.h>
 #include <stdbool.h>
 #include "player.h"
-
+#include "map.h"
 // Function declarations
-void startScreen();
-void displayInstructions(WINDOW *win);
-void game_loop(WINDOW *game_win, WINDOW *message_win);
-void display_level(WINDOW *win, int level);
 
 void startScreen() {
     clear();
@@ -31,14 +27,23 @@ void displayInstructions(WINDOW *win) {
 }
 
 void display_level(WINDOW *win, int level) {
-    werase(win); // Clear the window
-    
-    // Draw the level boundaries with '*'
-    box(win, '*', '*'); // Use '*' for the box borders
-    
-    // Optionally, add level-specific objects here
-    
-    wrefresh(win); // Refresh the window to display the new content
+    // Clear the window before drawing
+    werase(win);
+
+    // Activate color pair 1 for blue borders
+    wattron(win, COLOR_PAIR(1));
+    // Draw the level boundaries with '*', using color pair 1
+    box(win, '*', '*'); // Draw box borders with '*'
+    wattroff(win, COLOR_PAIR(1)); // Deactivate color pair 1
+
+    // Activate color pair 2 for the light blue bottom border
+    wattron(win, COLOR_PAIR(2));
+    // Draw the bottom line in light blue
+    mvwhline(win, 29, 1, '*', 78); // Assuming the window height is 30
+    wattroff(win, COLOR_PAIR(2)); // Deactivate color pair 2
+
+    // Refresh the window to display the new content
+    wrefresh(win);
 }
 
 void game_loop(WINDOW *game_win, WINDOW *message_win) {
