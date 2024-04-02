@@ -13,7 +13,7 @@ all: $(TARGET)
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $@ 
 	
-skyfall: skyfall.c skyfall.h
+main.o: main.c 
 	$(CC) $(CFLAGS) -c $<
 
 map.o: map.c  map.h 
