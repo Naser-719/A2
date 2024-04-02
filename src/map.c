@@ -1,5 +1,6 @@
 #include <ncurses.h>
 #include <stdbool.h>
+#include "player.h"
 
 // Function declarations
 void startScreen();
@@ -25,7 +26,7 @@ void displayInstructions(WINDOW *win) {
 
     // Draw the borders and print instructions
     box(win, '|', '-'); // Draw box borders
-    mvwprintw(win, 1, 1, "Instructions: Dodge the blocks to survive. Press 'p' to pause.");
+    mvwprintw(win, 1, 1, "Instructions: Dodge the blocks to survive.");
     wrefresh(win); // Refresh to show instructions
 }
 
@@ -40,6 +41,76 @@ void display_level(WINDOW *win, int level) {
     wrefresh(win); // Refresh the window to display the new content
 }
 
+void game_loop(WINDOW *game_win, WINDOW *message_win) {
+    Player player;
+    int ch;
+    bool paused = false;
+    int level = 1; // Starting level
+
+    initPlayer(&player); // Initialize the player position
+    keypad(game_win, TRUE); // Make sure this line is here to capture arrow keys
+
+    display_level(game_win, level); // Display the initial level
+    drawPlayer(game_win, &player); // Draw the player on the game window
+    displayInstructions(message_win); // Display instructions in the message window
+
+    while (1) {
+        if (paused) {
+            mvwprintw(message_win, 2, 2, "Game is paused.Press P to continue");
+            wrefresh(message_win);
+            do {
+                ch = wgetch(game_win); // Wait for 'p' to unpause
+            } while (ch != 'p');
+            paused = false;
+            werase(message_win); // Clear the pause message
+            displayInstructions(message_win); // Redisplay instructions
+        } else {
+            ch = wgetch(game_win); // Get user input
+
+            switch(ch) {
+                case KEY_LEFT:
+                    movePlayer(&player, -1, 0);
+                    break;
+                case KEY_RIGHT:
+                    movePlayer(&player, 1, 0);
+                    break;
+                case KEY_UP:
+                    movePlayer(&player, 0, -1);
+                    break;
+                case KEY_DOWN:
+                    movePlayer(&player, 0, 1);
+                    break;
+                case 'p':
+                    paused = true; // Pause the game
+                    break;
+                case 'q':
+                    // Ask if the user really wants to quit
+                    werase(message_win);
+                    mvwprintw(message_win, 1, 1, "Do you want to quit? (y/n) ");
+                    wrefresh(message_win);
+                    do {
+                        ch = wgetch(message_win); // Wait for 'y' or 'n'
+                    } while (ch != 'y' && ch != 'n');
+
+                    if (ch == 'y') {
+                        return; // Exit the loop and end the game
+                    } else {
+                        werase(message_win); // Clear the quit message
+                        displayInstructions(message_win); // Redisplay instructions
+                    }
+                    break;
+            }
+            display_level(game_win, level); // May need adjustments to avoid overwriting the player
+            drawPlayer(game_win, &player);
+            // Refresh the game window to show any updates
+            wrefresh(game_win);
+        }
+    }
+}
+
+
+
+/*
 void game_loop(WINDOW *game_win, WINDOW *message_win) {
     int ch;
     bool paused = false;
@@ -107,3 +178,4 @@ int main() {
 
     return 0;
 }
+*/
