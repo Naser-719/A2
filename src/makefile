@@ -5,7 +5,7 @@ CFLAGS=-Wall -g -std=c11 -lm -lc -lncurses -ltinfo
 
 TARGET=skyfall
 
-OBJS=npc.o
+OBJS= player.o main.o blocks.o
 
 all: $(TARGET)
 
@@ -13,18 +13,18 @@ all: $(TARGET)
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $@ 
 	
-skyfall: skyfall.c skyfall.h
+main.o: main.c 
 	$(CC) $(CFLAGS) -c $<
 
-npc.o: npc.c  npc.h 
+player.o: player.c  player.h 
 	$(CC) $(CFLAGS) -c $<
 
 blocks.o: blocks.c blocks.h
 	$(CC) $(CFLAGS) -c $<
 
 
-blocks_test: blocks.o test_blocks.c
-	$(CC) $(CFLAGS) test_blocks.c blocks.o -o blocks_test
+# blocks_test: blocks.o test_blocks.c
+# 	$(CC) $(CFLAGS) test_blocks.c blocks.o -o blocks_test
 
 
 Debug: $(OBJ) 

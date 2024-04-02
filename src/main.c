@@ -32,6 +32,8 @@ int main() {
     startScreen();
     game_loop(game_win, message_win);
 
+    
+
     // Cleanup
     delwin(game_win);
     delwin(message_win);
