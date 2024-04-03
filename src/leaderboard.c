@@ -1,6 +1,7 @@
 #include <ncurses.h>
 #include "leaderboard.h"
 #include <string.h> 
+#include <time.h>
 
 #define MAX_PLAYERS 5
 #define NAME_LENGTH 50
@@ -32,18 +33,12 @@ void updateLeaderboard(Leaderboard *lb, const char* playerName, int playerScore)
 
 
 
-
 void displayLeaderboard(const Leaderboard *lb) {
     int win_width = 30; // Width of the leaderboard window
     int win_height = MAX_PLAYERS + 4; // Height of the window, accounting for the title and padding
     int startx, starty;
 
-    // Initialize ncurses
-    initscr();
-    cbreak();
-    noecho();
-    keypad(stdscr, TRUE);
-    curs_set(0);
+    // Ensure ncurses is already initialized before this function is called
 
     // Calculate window position to center it
     startx = (COLS - win_width) / 2;
@@ -71,5 +66,5 @@ void displayLeaderboard(const Leaderboard *lb) {
 
     // Clean up
     delwin(win);
-    endwin();
+    // Don't call endwin() here; let the application manage the ncurses lifecycle
 }

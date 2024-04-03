@@ -1,7 +1,9 @@
 # CMPT201-X02L  
 
 CC=gcc
-CFLAGS=-Wall -g -std=c11 -lm -lc -lncurses -ltinfo
+CFLAGS=-Wall -g -std=c11 
+LDFLAGS=-lm -lc -lncurses -ltinfo
+
 
 TARGET=skyfall
 
@@ -11,7 +13,7 @@ all: $(TARGET)
 
 
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@ 
+	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@ 
 	
 main.o: main.c 
 	$(CC) $(CFLAGS) -c $<
@@ -22,8 +24,6 @@ map.o: map.c  map.h
 player.o: player.c  player.h 
 	$(CC) $(CFLAGS) -c $<
 
-leaderboard.o: leaderboard.c  leaderboard.h 
-	$(CC) $(CFLAGS) -c $<
 
 blocks.o: blocks.c blocks.h
 	$(CC) $(CFLAGS) -c $<
@@ -31,10 +31,13 @@ blocks.o: blocks.c blocks.h
 Debug: $(OBJ) 
 	$(CC) $(CFLAGS) $^ -o $@
 
-.PHONY: clean Debugger
+.PHONY: clean Debugger valgrind
 
 clean:
 	rm -f $(TARGET) $(OBJS) Debug
+
+valgrind:
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(TARGET)
 
 Debugger:
 	gdb Debug

@@ -10,12 +10,11 @@
 #define HARD_MODE_DELAY_MS 60
 #define HARD_MODE_START 60 // Time in seconds to switch to hard mode
 
-#define PLAYER_WIDTH 1
-#define PLAYER_HEIGHT 1
+#define PLAYER_WIDTH 2.5
+#define PLAYER_HEIGHT 2.5
 
 // Function prototypes
 struct timespec get_mode_delay(int mode);
-bool check_collision_with_player(int playerX, int playerY, int playerWidth, int playerHeight);
 
 int main() {
     initscr(); start_color();
@@ -31,7 +30,11 @@ int main() {
     startScreen(); displayInstructions(message_win); // Show start screen and instructions
     int mode = 0; time_t start_time = time(NULL); // Game mode setup
 
-    while (true) {
+    int frame_delay = 50; // Milliseconds to delay each frame for game responsiveness
+    timeout(frame_delay); // Set how long getch waits for input
+
+    bool game_running = true;
+    while (game_running) {
         if (difftime(time(NULL), start_time) >= HARD_MODE_START && mode == 0) {
             mode = 1; display_level(game_win, 2); // Switch to hard mode
         }
@@ -50,7 +53,24 @@ int main() {
         struct timespec ts = get_mode_delay(mode); nanosleep(&ts, NULL); // Delay based on mode
 
         int ch = wgetch(game_win); // Non-blocking input read
-        if (ch == 'q' || ch == 'Q') break; // Quit on 'q'
+        if (ch == 'q' || ch == 'Q'){
+            // Ask if the user really wants to quit
+                werase(message_win);
+                mvwprintw(message_win, 1, 1, "Do you want to quit? (y/n) ");
+                wrefresh(message_win);
+                do {
+                    ch = wgetch(message_win); // Wait for 'y' or 'n'
+                } while (ch != 'y' && ch != 'n');
+
+                if (ch == 'y') {
+                    return; // Exit the loop and end the game
+                } else {
+                    werase(message_win); // Clear the quit message
+                    displayInstructions(message_win); // Redisplay instructions
+                }
+
+        }
+
         else if (ch != ERR) { // If input was received
             int deltaX = 0, deltaY = 0;
             switch(ch) {
