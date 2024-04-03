@@ -12,11 +12,40 @@
 
 
 void startScreen() {
+    // Start color functionality
+    start_color();
+    init_pair(3, COLOR_RED, COLOR_BLACK);
+
+    // Calculate the position to center the title "SKYFALL"
+    const char *title = "SKYFALL";
+    const char *prompt = "Press any key to start";
+    int title_len = strlen(title);
+    int prompt_len = strlen(prompt);
+    int title_x = (SCREEN_WIDTH - title_len) / 2;
+    int title_y = SCREEN_HEIGHT / 2 - 1; // Position the title one line above the center
+
+    // Calculate the position to place the prompt right below "SKYFALL"
+    int prompt_x = (SCREEN_WIDTH - prompt_len) / 2;
+    int prompt_y = SCREEN_HEIGHT / 2; // Center line
+
+    // Clear the screen
     clear();
-    printw("Press any key to start...\n");
+
+    // Set the color and print "SKYFALL" in red, bold
+    attron(COLOR_PAIR(3) | A_BOLD);
+    mvprintw(title_y, title_x, "%s", title);
+    attroff(COLOR_PAIR(3) | A_BOLD);
+
+    // Print "Press any key to start" right below "SKYFALL"
+    mvprintw(prompt_y, prompt_x, "%s", prompt);
+
+    // Refresh the screen to show the text
     refresh();
+
+    // Wait for any key press to continue
     getch();
 }
+
 
 void displayInstructions(WINDOW *win) {
     werase(win); // Clear previous instructions

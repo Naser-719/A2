@@ -5,6 +5,9 @@
 
 #include<ncurses.h>
 
+#define SCREEN_WIDTH 80
+#define SCREEN_HEIGHT 30
+
 // Represents the player's position with x and y coordinates.
 typedef struct {
     int x; // Horizontal position of the player

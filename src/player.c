@@ -1,8 +1,7 @@
 #include "player.h"
 #include <ncurses.h>
 
-#define SCREEN_WIDTH 80
-#define SCREEN_HEIGHT 30
+
 
 void initPlayer(Player *player) {
     player->x = SCREEN_WIDTH / 2; // Center horizontally
