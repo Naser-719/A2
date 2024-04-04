@@ -15,7 +15,14 @@
 
 // Function prototypes
 struct timespec get_mode_delay(int mode);
-
+void delay(int milliseconds) {
+    clock_t start_time = clock();
+    // Convert milliseconds to the equivalent in clock ticks.
+    clock_t delay_time = milliseconds * CLOCKS_PER_SEC / 1000;
+    while (clock() < start_time + delay_time) {
+        // Empty loop.
+    }
+}
 int main() {
     initscr(); start_color();
     init_pair(1, COLOR_BLUE, COLOR_BLACK); init_pair(2, COLOR_CYAN, COLOR_BLACK);
@@ -50,7 +57,8 @@ int main() {
         mvwprintw(message_win, 1, 1, "Current Mode: %s", mode == 0 ? "Easy" : "Hard");
         wrefresh(message_win);
 
-        struct timespec ts = get_mode_delay(mode); nanosleep(&ts, NULL); // Delay based on mode
+	struct timespec ts = get_mode_delay(mode);
+	delay(ts.tv_sec * 1000 + ts.tv_nsec / 1000000); // Convert to milliseconds and call delay
 
         int ch = wgetch(game_win); // Non-blocking input read
         if (ch == 'q' || ch == 'Q'){
@@ -63,7 +71,7 @@ int main() {
                 } while (ch != 'y' && ch != 'n');
 
                 if (ch == 'y') {
-                    return; // Exit the loop and end the game
+                    return 0; // Exit the loop and end the game
                 } else {
                     werase(message_win); // Clear the quit message
                     displayInstructions(message_win); // Redisplay instructions
