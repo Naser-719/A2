@@ -19,6 +19,7 @@ struct timespec get_mode_delay(int mode) {
 }
 
 
+
 void startScreen() {
     // Start color functionality
     start_color();
@@ -60,7 +61,7 @@ void displayInstructions(WINDOW *win) {
 
     // Draw the borders and print instructions
     box(win, '|', '-'); // Draw box borders
-    mvwprintw(win, 1, 1, "Instructions:Dodge the blocks to survive.'P'= pause,'q'= quit");
+    mvwprintw(win, 2, 2, "Instructions:Dodge the blocks to survive.'P'= pause,'q'= quit");
     wrefresh(win); // Refresh to show instructions
 }
 
@@ -117,7 +118,7 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
     int mode = 0; time_t start_time = time(NULL); // Game mode setup
 
 
-    // display_window(game_win, level); // Display the initial level
+    display_window(game_win, mode); // Display the initial level
     drawPlayer(game_win, &player); // Draw the player on the game window
     displayInstructions(message_win); // Display instructions in the message window
 
