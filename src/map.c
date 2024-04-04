@@ -56,7 +56,6 @@ void startScreen() {
 
 
 void displayInstructions(WINDOW *win) {
-    // Assuming instructions window is separate and has been correctly sized and positioned
     werase(win); // Clear previous instructions
 
     // Draw the borders and print instructions
@@ -64,6 +63,7 @@ void displayInstructions(WINDOW *win) {
     mvwprintw(win, 1, 1, "Instructions:Dodge the blocks to survive.'P'= pause,'q'= quit");
     wrefresh(win); // Refresh to show instructions
 }
+
 
 void display_level(WINDOW *win, int level) {
     // Clear the window before drawing
@@ -84,6 +84,7 @@ void display_level(WINDOW *win, int level) {
     // Refresh the window to display the new content
     wrefresh(win);
 }
+
 
 void game_loop(WINDOW *game_win, WINDOW *message_win) {
 
@@ -118,19 +119,7 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
 
             int ch = wgetch(game_win); // Non-blocking input read
 
-            switch(ch) {
-                case KEY_LEFT:
-                    movePlayer(&player, -1, 0);
-                    break;
-                case KEY_RIGHT:
-                    movePlayer(&player, 1, 0);
-                    break;
-                case KEY_UP:
-                    movePlayer(&player, 0, -1);
-                    break;
-                case KEY_DOWN:
-                    movePlayer(&player, 0, 1);
-                    break;
+            switch (ch) {
                 case 'p':
                     werase(message_win);
                     mvwprintw(message_win, 1, 1, "Game is paused. Press 'P' to continue playing the game.\t");
@@ -144,21 +133,14 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
                     displayInstructions(message_win); // Redisplay instructions
                     wrefresh(message_win);
                     break;
+                // Handle other inputs (e.g., movement, quit)
                 case 'q':
-                    // Ask if the user really wants to quit
-                    werase(message_win);
-                    mvwprintw(message_win, 1, 1, "Do you want to quit? (y/n) ");
-                    wrefresh(message_win);
-                    do {
-                        ch = wgetch(message_win); // Wait for 'y' or 'n'
-                    } while (ch != 'y' && ch != 'n');
-
-                    if (ch == 'y') {
-                        return; // Exit the loop and end the game
-                    } else {
-                        werase(message_win); // Clear the quit message
-                        displayInstructions(message_win); // Redisplay instructions
-                    }
+                case 'Q':
+                    // Implement quit confirmation here
+                    break;
+                // Handle movement inputs
+                default:
+                    // Update game state
                     break;
             }
             // display_level(game_win, level); // May need adjustments to avoid overwriting the player
