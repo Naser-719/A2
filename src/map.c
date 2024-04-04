@@ -66,7 +66,7 @@ void displayInstructions(WINDOW *win) {
 }
 
 
-void display_level(WINDOW *win, int level) {
+void display_window(WINDOW *win, int level) {
     // Clear the window before drawing
     werase(win);
 
@@ -95,6 +95,18 @@ void delay(int milliseconds) {
     }
 }
 
+void display_level(WINDOW *win, int mode) {
+    werase(win); // Clear the window to update the level info
+    if (mode == 0) {
+        // Display Level 1 (Easy)
+        mvwprintw(win, 3, 3, "Level 1 (Easy)");
+    } else if (mode == 1) {
+        // Display Level 2 (Hard)
+        mvwprintw(win, 3, 3, "Level 2 (Hard)");
+    }
+    wrefresh(win); // Refresh the window to show the updated info
+}
+
 void gameOver(WINDOW *message_win) {
     werase(message_win); // Clear the instruction window
     mvwprintw(message_win, 1, 1, "Game Over! Press 'Q' to quit.");
@@ -116,14 +128,14 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
     int mode = 0; time_t start_time = time(NULL); // Game mode setup
 
 
-    // display_level(game_win, level); // Display the initial level
+    // display_window(game_win, level); // Display the initial level
     drawPlayer(game_win, &player); // Draw the player on the game window
     displayInstructions(message_win); // Display instructions in the message window
 
     bool game_running = true;
     while (game_running) {
         if (difftime(time(NULL), start_time) >= HARD_MODE_START && mode == 0) {
-                mode = 1; display_level(game_win, 2); // Switch to hard mode
+                mode = 1; display_window(game_win, 2); // Switch to hard mode
             }
             spawn_new_block(); update_blocks_position(); // Update blocks
 
@@ -138,7 +150,8 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
             break; // End game on collision
         }
 
-        werase(game_win); display_level(game_win, mode + 1);
+        werase(game_win); display_window(game_win, mode + 1);
+        // display_level(message_win, mode); 
         drawPlayer(game_win, &player); render_blocks(game_win); wrefresh(game_win); // Draw state
 
         mvwprintw(message_win, 1, 1, "Current Mode: %s", mode == 0 ? "Easy" : "Hard");
@@ -188,7 +201,7 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
                 }
                 break;
         }
-        // display_level(game_win, level); // May need adjustments to avoid overwriting the player
+        // display_window(game_win, level); // May need adjustments to avoid overwriting the player
         drawPlayer(game_win, &player);
         // Refresh the game window to show any updates
         wrefresh(game_win);
