@@ -61,7 +61,7 @@ void displayInstructions(WINDOW *win) {
 
     // Draw the borders and print instructions
     box(win, '|', '-'); // Draw box borders
-    mvwprintw(win, 1, 1, "Instructions:Dodge the blocks to survive.'P'= pause,'q'= quit");
+    mvwprintw(win, 2, 2, "Instructions:Dodge the blocks to survive.'P'= pause,'q'= quit");
     wrefresh(win); // Refresh to show instructions
 }
 
@@ -95,16 +95,16 @@ void delay(int milliseconds) {
     }
 }
 
-void display_level(WINDOW *win, int mode) {
-    werase(win); // Clear the window to update the level info
+void display_level(WINDOW *message_win, int mode) {
+    werase(message_win); // Clear the window to update the level info
     if (mode == 0) {
         // Display Level 1 (Easy)
-        mvwprintw(win, 3, 3, "Level 1 (Easy)");
+        mvwprintw(message_win, 2, 2, "Level 1 (Easy)");
     } else if (mode == 1) {
         // Display Level 2 (Hard)
-        mvwprintw(win, 3, 3, "Level 2 (Hard)");
+        mvwprintw(message_win, 2, 2, "Level 2 (Hard)");
     }
-    wrefresh(win); // Refresh the window to show the updated info
+    wrefresh(message_win); // Refresh the window to show the updated info
 }
 
 void gameOver(WINDOW *message_win) {
@@ -128,7 +128,7 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
     int mode = 0; time_t start_time = time(NULL); // Game mode setup
 
 
-    // display_window(game_win, level); // Display the initial level
+    display_window(game_win, mode); // Display the initial level
     drawPlayer(game_win, &player); // Draw the player on the game window
     displayInstructions(message_win); // Display instructions in the message window
 
