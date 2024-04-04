@@ -9,7 +9,7 @@
 
 #define EASY_MODE_DELAY_MS 120
 #define HARD_MODE_DELAY_MS 60
-#define HARD_MODE_START 60 
+#define HARD_MODE_START 10 
 
 // Function declarations
 struct timespec get_mode_delay(int mode) {
@@ -94,17 +94,7 @@ void delay(int milliseconds) {
     }
 }
 
-void display_level(WINDOW *win, int mode) {
-    werase(win); // Clear the window to update the level info
-    if (mode == 0) {
-        // Display Level 1 (Easy)
-        mvwprintw(win, 3, 3, "Level 1 (Easy)");
-    } else if (mode == 1) {
-        // Display Level 2 (Hard)
-        mvwprintw(win, 3, 3, "Level 2 (Hard)");
-    }
-    wrefresh(win); // Refresh the window to show the updated info
-}
+
 
 void gameOver(WINDOW *message_win) {
     werase(message_win); // Clear the instruction window
@@ -150,10 +140,9 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
         }
 
         werase(game_win); display_window(game_win, mode + 1);
-        // display_level(message_win, mode); 
         drawPlayer(game_win, &player); render_blocks(game_win); wrefresh(game_win); // Draw state
 
-        mvwprintw(message_win, 1, 1, "Current Mode: %s", mode == 0 ? "Easy" : "Hard");
+        mvwprintw(message_win, 3, 3, "Current Mode: %s", mode == 0 ? "Easy" : "Hard");
         wrefresh(message_win);
 
         struct timespec ts = get_mode_delay(mode); nanosleep(&ts, NULL); // Delay based on mode
