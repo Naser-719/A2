@@ -37,7 +37,7 @@ clean:
 	rm -f $(TARGET) $(OBJS) Debug
 
 valgrind:
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(TARGET)
+	valgrind --leak-check=full --show-leak-kinds=all  ./$(TARGET)
 
 Debugger:
 	gdb Debug

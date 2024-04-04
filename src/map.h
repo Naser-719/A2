@@ -13,7 +13,9 @@ void displayInstructions(WINDOW *win);
 void game_loop(WINDOW *game_win, WINDOW *message_win);
 
 // Displays the current level of the game in the specified window
-void display_level(WINDOW *win, int level);
+void display_window(WINDOW *win, int level);
+
+void display_level(WINDOW *win, int mode);
 
 #endif // MAP_H
 
