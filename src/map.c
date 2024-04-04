@@ -19,6 +19,7 @@ struct timespec get_mode_delay(int mode) {
 }
 
 
+
 void startScreen() {
     // Start color functionality
     start_color();
