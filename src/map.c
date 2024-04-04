@@ -1,8 +1,23 @@
 #include <ncurses.h>
 #include <stdbool.h>
+#include <stdlib.h> 
+#include <time.h>
+#include <string.h>
 #include "player.h"
 #include "map.h"
+#include "blocks.h"
+
+#define EASY_MODE_DELAY_MS 120
+#define HARD_MODE_DELAY_MS 60
+#define HARD_MODE_START 60 
+
 // Function declarations
+struct timespec get_mode_delay(int mode) {
+    int delay_ms = mode == 0 ? EASY_MODE_DELAY_MS : HARD_MODE_DELAY_MS;
+    struct timespec ts = { .tv_sec = delay_ms / 1000, .tv_nsec = (delay_ms % 1000) * 1000000L };
+    return ts;
+}
+
 
 void startScreen() {
     // Start color functionality
@@ -41,11 +56,6 @@ void startScreen() {
 
 
 void displayInstructions(WINDOW *win) {
-    int start_row = 15; // Start half the height from the top
-    int end_row = start_row + 14; // Half the height of the map for the instructions box
-    int start_col = 81; // Start right after the map, which is 80 characters wide
-    int end_col = 110; // End column of the instructions box
-
     // Assuming instructions window is separate and has been correctly sized and positioned
     werase(win); // Clear previous instructions
 
@@ -76,31 +86,37 @@ void display_level(WINDOW *win, int level) {
 }
 
 void game_loop(WINDOW *game_win, WINDOW *message_win) {
-    Player player;
-    int ch;
-    bool paused = false;
-    int level = 1; // Starting level
 
-    initPlayer(&player); // Initialize the player position
-    keypad(game_win, TRUE); // Make sure this line is here to capture arrow keys
+    srand(time(NULL)); // Seed RNG
+    initialize_blocks(); // Setup blocks
+    Player player; initPlayer(&player); // Initialize player
+
+    int mode = 0; time_t start_time = time(NULL); // Game mode setup
 
 
-    display_level(game_win, level); // Display the initial level
+    // display_level(game_win, level); // Display the initial level
     drawPlayer(game_win, &player); // Draw the player on the game window
     displayInstructions(message_win); // Display instructions in the message window
 
     while (1) {
-        if (paused) {
-           mvwprintw(message_win, 1, 1, "Game is paused. Press 'P' to continue playing the game.\t");
-           wrefresh(message_win);
-            do {
-                ch = wgetch(game_win); // Wait for 'p' to unpause
-            } while (ch != 'p');
-            paused = false;
-            werase(message_win); // Clear the pause message
-            displayInstructions(message_win); // Redisplay instructions
-        } else {
-            ch = wgetch(game_win); // Get user input
+        if (difftime(time(NULL), start_time) >= HARD_MODE_START && mode == 0) {
+                mode = 1; display_level(game_win, 2); // Switch to hard mode
+            }
+            spawn_new_block(); update_blocks_position(); // Update blocks
+
+            if (check_collision_with_player(player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT)) {
+                break; // End game on collision
+            }
+
+            werase(game_win); display_level(game_win, mode + 1);
+            drawPlayer(game_win, &player); render_blocks(game_win); wrefresh(game_win); // Draw state
+
+            mvwprintw(message_win, 1, 1, "Current Mode: %s", mode == 0 ? "Easy" : "Hard");
+            wrefresh(message_win);
+
+            struct timespec ts = get_mode_delay(mode); nanosleep(&ts, NULL); // Delay based on mode
+
+            int ch = wgetch(game_win); // Non-blocking input read
 
             switch(ch) {
                 case KEY_LEFT:
@@ -116,7 +132,17 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
                     movePlayer(&player, 0, 1);
                     break;
                 case 'p':
-                    paused = true; // Pause the game
+                    werase(message_win);
+                    mvwprintw(message_win, 1, 1, "Game is paused. Press 'P' to continue playing the game.\t");
+                    wrefresh(message_win);
+                    while(1){
+                        ch = wgetch(message_win); // Wait for p or P
+                        if (ch == 'p' || ch == 'P') break;
+                    } 
+
+                    werase(message_win); // Clear the quit message
+                    displayInstructions(message_win); // Redisplay instructions
+                    wrefresh(message_win);
                     break;
                 case 'q':
                     // Ask if the user really wants to quit
@@ -135,82 +161,12 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
                     }
                     break;
             }
-            display_level(game_win, level); // May need adjustments to avoid overwriting the player
+            // display_level(game_win, level); // May need adjustments to avoid overwriting the player
             drawPlayer(game_win, &player);
             // Refresh the game window to show any updates
             wrefresh(game_win);
         }
     }
-}
 
 
 
-/*
-void game_loop(WINDOW *game_win, WINDOW *message_win) {
-    int ch;
-    bool paused = false;
-    int level = 1; // Starting level
-
-    display_level(game_win, level); // Display the initial level
-    displayInstructions(message_win); // Display instructions in the message window
-
-    while (1) {
-        if (paused) {
-            mvwprintw(message_win, 1, 1, "Game is paused. Press 'p' to continue.");
-            wrefresh(message_win);
-            do {
-                ch = wgetch(game_win); // Wait for 'p' to unpause
-            } while (ch != 'p');
-            paused = false;
-            werase(message_win); // Clear the pause message
-            displayInstructions(message_win); // Redisplay instructions
-        } else {
-            ch = wgetch(game_win); // Get user input
-
-            if (ch == 'q') {
-                // Ask if the user really wants to quit
-                werase(message_win);
-                mvwprintw(message_win, 1, 1, "Do you want to quit? (y/n) ");
-                wrefresh(message_win);
-                do {
-                    ch = wgetch(message_win); // Wait for 'y' or 'n'
-                } while (ch != 'y' && ch != 'n');
-
-                if (ch == 'y') {
-                    break; // Exit the loop and end the game
-                } else {
-                    werase(message_win); // Clear the quit message
-                    displayInstructions(message_win); // Redisplay instructions
-                }
-            } else if (ch == 'p') {
-                paused = true; // Pause the game
-            }
-        }
-
-        // TODO: Add the rest of your game logic here
-
-        // Refresh the game window to show any updates
-        wrefresh(game_win);
-    }
-}
-
-int main() {
-    initscr();
-    cbreak();
-    noecho();
-    keypad(stdscr, TRUE); // Enable function keys
-
-    int rows = 30, cols = 80;
-    WINDOW *game_win = newwin(rows, cols, 0, 0);
-    WINDOW *message_win = newwin(5, cols, rows, 0); // Adjusted height for instructions
-
-    startScreen();
-    game_loop(game_win, message_win);
-
-    delwin(game_win);
-    delwin(message_win);
-    endwin();
-
-    return 0;
-}
-*/
