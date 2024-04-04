@@ -23,6 +23,19 @@ void delay(int milliseconds) {
         // Empty loop.
     }
 }
+
+void gameOver(WINDOW *message_win) {
+    werase(message_win); // Clear the instruction window
+    mvwprintw(message_win, 1, 1, "Game Over! Press 'Q' to quit.");
+    wrefresh(message_win);
+    
+    int ch;
+    do {
+        ch = wgetch(message_win); // Wait for 'Q' to quit
+    } while (ch != 'q' && ch != 'Q');
+}
+
+
 int main() {
     initscr(); start_color();
     init_pair(1, COLOR_BLUE, COLOR_BLACK); init_pair(2, COLOR_CYAN, COLOR_BLACK);
@@ -46,6 +59,11 @@ int main() {
             mode = 1; display_level(game_win, 2); // Switch to hard mode
         }
         spawn_new_block(); update_blocks_position(); // Update blocks
+	if (check_collision_with_player(player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT)) {
+   		 gameOver(message_win); // Display game over message and wait for 'q'
+    		game_running = false; // Set game_running to false to exit the loop
+    		continue; // Skip the rest of the current loop iteration
+	}
 
         if (check_collision_with_player(player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT)) {
             break; // End game on collision
