@@ -1,3 +1,4 @@
+//Name: Mustafa Al-Hamadani, Naser Issa, Gurmehar Singh
 #include "player.h"
 #include <ncurses.h>
 

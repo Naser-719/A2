@@ -1,3 +1,4 @@
+//Name: Mustafa Al-Hamadani, Naser Issa, Gurmehar Singh
 #include <ncurses.h>
 #include <stdlib.h>
 #include "blocks.h"

@@ -1,3 +1,4 @@
+//Name: Mustafa Al-Hamadani, Naser Issa, Gurmehar Singh
 #ifndef MAP_H
 #define MAP_H
 

@@ -1,3 +1,4 @@
+//Name: Mustafa Al-Hamadani, Naser Issa, Gurmehar Singh
 // Defines the structure and functions for the player character in the game.
 
 #ifndef PLAYER_H

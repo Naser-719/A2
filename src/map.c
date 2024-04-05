@@ -1,3 +1,4 @@
+//Name: Mustafa Al-Hamadani, Naser Issa, Gurmehar Singh
 #include <ncurses.h>
 #include <stdbool.h>
 #include <stdlib.h> 
@@ -66,7 +67,8 @@ void displayInstructions(WINDOW *win) {
 
     // Draw the borders and print instructions
     box(win, '|', '-'); // Draw box borders
-    mvwprintw(win, 2, 2, "Instructions:Dodge the blocks to survive.'P'= pause,'q'= quit");
+    mvwprintw(win, 1, 1, "Instructions:Dodge the blocks to survive.'P'= pause,'q'= quit");
+    mvwprintw(win, 2, 2, "'I'= Activate Immunity(60 sec),'s'= Activate easy mode(60 sec)");
     wrefresh(win); // Refresh to show instructions
 }
 
@@ -93,14 +95,9 @@ void display_window(WINDOW *win, int level) {
 
 void delay(int milliseconds) {
     clock_t start_time = clock();
-    // Convert milliseconds to the equivalent in clock ticks.
-    clock_t delay_time = milliseconds * CLOCKS_PER_SEC / 1000;
-    while (clock() < start_time + delay_time) {
-        // Empty loop.
-    }
+    long wait_ticks = milliseconds * (CLOCKS_PER_SEC / 1000);
+    while (clock() < start_time + wait_ticks);
 }
-
-
 
 void gameOver(WINDOW *message_win) {
     werase(message_win); // Clear the instruction window
@@ -147,12 +144,11 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
 
         werase(game_win); display_window(game_win, mode + 1);
         drawPlayer(game_win, &player); render_blocks(game_win); wrefresh(game_win); // Draw state
-
         mvwprintw(message_win, 3, 3, "Current Mode: %s", mode == 0 ? "Easy" : "Hard");
         wrefresh(message_win);
 
-        struct timespec ts = get_mode_delay(mode); nanosleep(&ts, NULL); // Delay based on mode
-
+        //struct timespec ts = get_mode_delay(mode); nanosleep(&ts, NULL); // Delay based on mode
+	delay(mode == 0 ? EASY_MODE_DELAY_MS : HARD_MODE_DELAY_MS);
         int ch = wgetch(game_win); // Non-blocking input read
 
         switch(ch) {
@@ -164,7 +160,6 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
                 movePlayer(&player, 0, -1); break;
             case KEY_DOWN:
                 movePlayer(&player, 0, 1); break;
-
 	    case 'p':
                 werase(message_win);
                 mvwprintw(message_win, 1, 1, "Game is paused. Press 'P' to continue playing the game.\t");
