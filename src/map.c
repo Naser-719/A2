@@ -1,17 +1,8 @@
 //Name: Mustafa Al-Hamadani, Naser Issa, Gurmehar Singh
-#include <ncurses.h>
-#include <stdbool.h>
-#include <stdlib.h> 
-#include <time.h>
-#include <string.h>
-#include "player.h"
 #include "map.h"
-#include "blocks.h"
 
-#define EASY_MODE_DELAY_MS 120
-#define HARD_MODE_DELAY_MS 60
-#define HARD_MODE_START 60 
-#define POWERUP_TIME 20
+
+int best_time; 
 
 // Function declarations
 struct timespec get_mode_delay(int mode) {
@@ -30,8 +21,8 @@ void startScreen() {
     // Calculate the position to center the title "SKYFALL"
     const char *title = "SKYFALL";
     const char *prompt = "Press any key to start";
-    int title_len = strlen(title);
-    int prompt_len = strlen(prompt);
+    int title_len = strlen(title),  prompt_len = strlen(prompt);
+
     int title_x = (SCREEN_WIDTH - title_len) / 2;
     int title_y = SCREEN_HEIGHT / 2 - 1; // Position the title one line above the center
 
@@ -50,6 +41,9 @@ void startScreen() {
     // Print "Press any key to start" right below "SKYFALL"
     mvprintw(prompt_y, prompt_x, "%s", prompt);
 
+    best_time = load_best_time();
+    mvprintw(prompt_y+1, prompt_x-0.5, "Best time to beat-> %d sec", best_time);
+
     // Refresh the screen to show the text
     refresh();
 
@@ -57,6 +51,27 @@ void startScreen() {
     getch();
 }
 
+void save_best_time(int bestTime) {
+    FILE *file = fopen("best_time.txt", "w"); // Open the file in write mode
+    if (file == NULL) {
+        printf("Error opening file!\n");
+        return;
+    }
+    fprintf(file, "%d", bestTime); // Write the best time
+    fclose(file); // Close the file
+}
+
+int load_best_time() {
+    int bestTime;
+    FILE *file = fopen("best_time.txt", "r"); // Open the file in read mode
+    if (file == NULL) {
+        printf("Error opening file or file does not exist. Starting with default best time.\n");
+        return -1; // Return -1 or an appropriate default value
+    }
+    fscanf(file, "%d", &bestTime); // Read the best time
+    fclose(file); // Close the file
+    return bestTime;
+}
 
 void displayInstructions(WINDOW *win, char power_up) {
     werase(win); // Clear previous instructions
@@ -102,10 +117,14 @@ void delay(int milliseconds) {
 }
 
 void gameOver(WINDOW *message_win, int total_time) {
+    if(total_time> best_time){
+        best_time = total_time;
+        save_best_time(best_time);
+    }
+
     werase(message_win); // Clear the instruction window
     mvwprintw(message_win, 1, 1, "Game Over! Press 'Q' to quit. Time survived: %d seconds!", total_time);
     wrefresh(message_win);
-    
     int ch;
     do {
         ch = wgetch(message_win); // Wait for 'Q' to quit
