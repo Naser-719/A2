@@ -32,7 +32,9 @@ void game_loop(WINDOW *game_win, WINDOW *message_win);
 // 
 void display_window(WINDOW *win);
 
+void quit_game(int ch, WINDOW *message_win);
 
+void pause_game(int ch, WINDOW *message_win);
 
 // In map.h or a suitable header file
 

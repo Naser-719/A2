@@ -66,7 +66,7 @@ int load_best_time() {
     FILE *file = fopen("best_time.txt", "r"); // Open the file in read mode
     if (file == NULL) {
         printf("Error opening file or file does not exist. Starting with default best time.\n");
-        return -1; // Return -1 or an appropriate default value
+        return -1;  
     }
     fscanf(file, "%d", &bestTime); // Read the best time
     fclose(file); // Close the file
@@ -172,13 +172,11 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
             }
         }
 
-
         werase(game_win); display_window(game_win);
         drawPlayer(game_win, &player); render_blocks(game_win); wrefresh(game_win); // Draw state
         mvwprintw(message_win, 3, 3, "Current Mode: %s", mode == 0 ? "Easy" : "Hard");
         wrefresh(message_win);
 
-        //struct timespec ts = get_mode_delay(mode); nanosleep(&ts, NULL); // Delay based on mode
 	    delay(mode == 0 ? EASY_MODE_DELAY_MS : HARD_MODE_DELAY_MS);
         int ch = wgetch(game_win); // Non-blocking input read
         
@@ -209,34 +207,11 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
                     displayInstructions(message_win, 105); //105 for 'i'
                 } break;
             case 'p':
-                werase(message_win);
-                mvwprintw(message_win, 1, 1, "Game is paused. Press 'P' to continue playing the game.\t");
-                wrefresh(message_win);
-                while(1){
-                    ch = wgetch(message_win); // Wait for p or P
-                    if (ch == 'p' || ch == 'P') break;
-                } 
-
-                werase(message_win); // Clear the quit message
-                displayInstructions(message_win,0); // Redisplay instructions
-                wrefresh(message_win);
+                pause_game(ch, message_win);
                 break;
 
             case 'q':
-                // Ask if the user really wants to quit
-                werase(message_win);
-                mvwprintw(message_win, 1, 1, "Do you want to quit? (y/n) ");
-                wrefresh(message_win);
-                do {
-                    ch = wgetch(message_win); // Wait for 'y' or 'n'
-                } while (ch != 'y' && ch != 'n');
-
-                if (ch == 'y') {
-                    return; // Exit the loop and end the game
-                } else {
-                    werase(message_win); // Clear the quit message
-                    displayInstructions(message_win, 0); // Redisplay instructions
-                }
+                quit_game(ch, message_win);
                 break;
         }
 
@@ -248,3 +223,34 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
 
 
 
+void quit_game(int ch, WINDOW *message_win){
+    // Ask if the user really wants to quit
+    werase(message_win);
+    mvwprintw(message_win, 1, 1, "Do you want to quit? (y/n) ");
+    wrefresh(message_win);
+    do {
+        ch = wgetch(message_win); // Wait for 'y' or 'n'
+    } while (ch != 'y' && ch != 'n');
+
+    if (ch == 'y') {
+        return; // Exit the loop and end the game
+    } else {
+        werase(message_win); // Clear the quit message
+        displayInstructions(message_win, 0); // Redisplay instructions
+    }
+}
+
+
+void pause_game(int ch, WINDOW *message_win){
+    werase(message_win);
+    mvwprintw(message_win, 1, 1, "Game is paused. Press 'P' to continue playing the game.\t");
+    wrefresh(message_win);
+    while(1){
+        ch = wgetch(message_win); // Wait for p or P
+        if (ch == 'p' || ch == 'P') break;
+    } 
+
+    werase(message_win); // Clear the quit message
+    displayInstructions(message_win,0); // Redisplay instructions
+    wrefresh(message_win);
+}
