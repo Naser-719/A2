@@ -211,7 +211,7 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
                 break;
 
             case 'q':
-                quit_game(ch, message_win);
+                game_running = quit_game(ch, message_win);
                 break;
         }
 
@@ -223,7 +223,7 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
 
 
 
-void quit_game(int ch, WINDOW *message_win){
+bool quit_game(int ch, WINDOW *message_win){
     // Ask if the user really wants to quit
     werase(message_win);
     mvwprintw(message_win, 1, 1, "Do you want to quit? (y/n) ");
@@ -233,11 +233,12 @@ void quit_game(int ch, WINDOW *message_win){
     } while (ch != 'y' && ch != 'n');
 
     if (ch == 'y') {
-        return; // Exit the loop and end the game
+        return false; // Exit the loop and end the game
     } else {
         werase(message_win); // Clear the quit message
         displayInstructions(message_win, 0); // Redisplay instructions
     }
+    return true;
 }
 
 
