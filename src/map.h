@@ -8,13 +8,13 @@
 void startScreen();
 
 // Displays the game instructions in the specified window
-void displayInstructions(WINDOW *win);
+void displayInstructions(WINDOW *win, char power_up);
 
 // The main loop of the game, handling game logic and user input
 void game_loop(WINDOW *game_win, WINDOW *message_win);
 
-// Displays the current level of the game in the specified window
-void display_window(WINDOW *win, int level);
+// 
+void display_window(WINDOW *win);
 
 
 

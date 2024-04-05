@@ -10,8 +10,8 @@
 
 #define EASY_MODE_DELAY_MS 120
 #define HARD_MODE_DELAY_MS 60
-#define HARD_MODE_START 10 
-#define POWERUP_TIME 5
+#define HARD_MODE_START 60 
+#define POWERUP_TIME 20
 
 // Function declarations
 struct timespec get_mode_delay(int mode) {
@@ -58,18 +58,24 @@ void startScreen() {
 }
 
 
-void displayInstructions(WINDOW *win) {
+void displayInstructions(WINDOW *win, char power_up) {
     werase(win); // Clear previous instructions
 
     // Draw the borders and print instructions
     box(win, '|', '-'); // Draw box borders
     mvwprintw(win, 1, 1, "Instructions:Dodge the blocks to survive.'P'= pause,'q'= quit");
-    mvwprintw(win, 2, 2, "'I'= Activate Immunity(60 sec),'s'= Activate easy mode(60 sec)");
+    if(power_up == 'i'){
+        mvwprintw(win, 2, 2, "--ACTIVATED Immunity (20 sec)--, 's' = Activate Easy mode (20 sec)");
+    } else if(power_up == 's'){
+        mvwprintw(win, 2, 2, "'I' = Activate Immunity (20 sec), --ACTIVATED Easy mode (20 sec)--");
+    } else {
+        mvwprintw(win, 2, 2, "'I' = Activate Immunity (20 sec), 's' = Activate Easy mode (20 sec)");
+    }
     wrefresh(win); // Refresh to show instructions
 }
 
 
-void display_window(WINDOW *win, int level) {
+void display_window(WINDOW *win) {
     // Clear the window before drawing
     werase(win);
 
@@ -95,9 +101,9 @@ void delay(int milliseconds) {
     while (clock() < start_time + wait_ticks);
 }
 
-void gameOver(WINDOW *message_win) {
+void gameOver(WINDOW *message_win, int total_time) {
     werase(message_win); // Clear the instruction window
-    mvwprintw(message_win, 1, 1, "Game Over! Press 'Q' to quit.");
+    mvwprintw(message_win, 1, 1, "Game Over! Press 'Q' to quit. Time survived: %d seconds!", total_time);
     wrefresh(message_win);
     
     int ch;
@@ -108,7 +114,7 @@ void gameOver(WINDOW *message_win) {
 
 
 void game_loop(WINDOW *game_win, WINDOW *message_win) {
-    bool immunity = false;
+    bool immunity = false, slow_mode = false;
     time_t immunity_time = time(NULL);
     int slow_down_start = 0, slow_down_once = 0, immunity_once = 0;
 
@@ -119,38 +125,42 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
     int mode = 0; time_t start_time = time(NULL); // Game mode setup
 
 
-    display_window(game_win, mode); // Display the initial level
+    display_window(game_win); // Display the initial level
     drawPlayer(game_win, &player); // Draw the player on the game window
-    displayInstructions(message_win); // Display instructions in the message window
+    displayInstructions(message_win, 0); // Display instructions in the message window
 
     bool game_running = true;
     while (game_running) {
         if(immunity == true){
             if(difftime(time(NULL), immunity_time)> POWERUP_TIME){
                 immunity = false;
+                displayInstructions(message_win, 0);
             }
         }
 
         if (difftime(time(NULL), start_time) >= (HARD_MODE_START+slow_down_start) && mode == 0) {
-                mode = 1; display_window(game_win, 2); // Switch to hard mode
+                mode = 1; display_window(game_win); // Switch to hard mode
+                slow_mode = false;
+                displayInstructions(message_win, 0);
             }
-            spawn_new_block(); update_blocks_position(); // Update blocks
+        
+        spawn_new_block(); update_blocks_position(); // Update blocks
 
         if (immunity == false){
             if (check_collision_with_player(player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT)) {
-                gameOver(message_win); // Display game over message and wait for 'q'
+                gameOver(message_win, difftime(time(NULL), start_time)); // Display game over message and wait for 'q'
                 break; 
             }
         }
 
 
-        werase(game_win); display_window(game_win, mode + 1);
+        werase(game_win); display_window(game_win);
         drawPlayer(game_win, &player); render_blocks(game_win); wrefresh(game_win); // Draw state
         mvwprintw(message_win, 3, 3, "Current Mode: %s", mode == 0 ? "Easy" : "Hard");
         wrefresh(message_win);
 
         //struct timespec ts = get_mode_delay(mode); nanosleep(&ts, NULL); // Delay based on mode
-	delay(mode == 0 ? EASY_MODE_DELAY_MS : HARD_MODE_DELAY_MS);
+	    delay(mode == 0 ? EASY_MODE_DELAY_MS : HARD_MODE_DELAY_MS);
         int ch = wgetch(game_win); // Non-blocking input read
         
         switch(ch) {
@@ -164,17 +174,20 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
                 movePlayer(&player, 0, 1); break;
 
             case 's':
-                if((difftime(time(NULL), start_time) > HARD_MODE_START) && (slow_down_once ==0)){
+                if((difftime(time(NULL), start_time) > HARD_MODE_START) && (slow_down_once ==0) && (immunity==false)){
                     mode = 0;
+                    slow_mode = true;
                     slow_down_start = difftime(time(NULL), start_time)-HARD_MODE_START+POWERUP_TIME; 
                     slow_down_once += 1;
+                    displayInstructions(message_win, 115); //115 for 's'
                 } break;
 
             case 'i':
-                if (immunity_once==0){
+                if (immunity_once==0 && slow_mode== false){
                     immunity = true;
                     immunity_once = 1;
                     immunity_time = time(NULL);
+                    displayInstructions(message_win, 105); //105 for 'i'
                 } break;
             case 'p':
                 werase(message_win);
@@ -186,7 +199,7 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
                 } 
 
                 werase(message_win); // Clear the quit message
-                displayInstructions(message_win); // Redisplay instructions
+                displayInstructions(message_win,0); // Redisplay instructions
                 wrefresh(message_win);
                 break;
 
@@ -203,11 +216,11 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
                     return; // Exit the loop and end the game
                 } else {
                     werase(message_win); // Clear the quit message
-                    displayInstructions(message_win); // Redisplay instructions
+                    displayInstructions(message_win, 0); // Redisplay instructions
                 }
                 break;
         }
-        // display_window(game_win, level); // May need adjustments to avoid overwriting the player
+
         drawPlayer(game_win, &player);
         // Refresh the game window to show any updates
         wrefresh(game_win);

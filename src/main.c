@@ -15,7 +15,7 @@ int main() {
 
     startScreen();
     WINDOW *game_win = newwin(30, 80, 0, 0); WINDOW *message_win = newwin(5, 80, 30, 0);
-    displayInstructions(message_win); 
+    displayInstructions(message_win, 0); 
     keypad(game_win, TRUE); nodelay(game_win, TRUE); // Non-blocking input
 
     int frame_delay = 50; // Milliseconds to delay each frame for game responsiveness
