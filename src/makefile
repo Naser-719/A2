@@ -1,5 +1,5 @@
 # CMPT201-X02L  
-
+#Name: Mustafa Al-Hamadani, Naser Issa, Gurmehar Singh
 CC=gcc
 CFLAGS=-Wall -g -std=c11 
 LDFLAGS=-lm -lc -lncurses -ltinfo

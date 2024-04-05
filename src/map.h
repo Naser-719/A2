@@ -1,3 +1,4 @@
+//Name: Mustafa Al-Hamadani, Naser Issa, Gurmehar Singh
 #ifndef MAP_H
 #define MAP_H
 
@@ -14,6 +15,11 @@ void game_loop(WINDOW *game_win, WINDOW *message_win);
 
 // Displays the current level of the game in the specified window
 void display_window(WINDOW *win, int level);
+
+
+
+// In map.h or a suitable header file
+
 
 
 #endif // MAP_H
