@@ -40,7 +40,7 @@ Debug: $(OBJ)
 clean:
 	rm -f $(TARGET) $(OBJS) Debug
 
-valgrind:
+Mem_valgrind:
 	valgrind --leak-check=full --show-leak-kinds=all  ./$(TARGET)
 
 Debugger:
