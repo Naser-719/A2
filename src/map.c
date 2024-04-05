@@ -10,6 +10,7 @@
 #define EASY_MODE_DELAY_MS 120
 #define HARD_MODE_DELAY_MS 60
 #define HARD_MODE_START 10 
+#define POWERUP_TIME 5
 
 // Function declarations
 struct timespec get_mode_delay(int mode) {
@@ -110,6 +111,9 @@ void gameOver(WINDOW *message_win) {
 
 
 void game_loop(WINDOW *game_win, WINDOW *message_win) {
+    bool immunity = false;
+    time_t immunity_time = time(NULL);
+    int slow_down_start = 0, slow_down_once = 0, immunity_once = 0;
 
     srand(time(NULL)); // Seed RNG
     initialize_blocks(); // Setup blocks
@@ -124,21 +128,24 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
 
     bool game_running = true;
     while (game_running) {
-        if (difftime(time(NULL), start_time) >= HARD_MODE_START && mode == 0) {
+        if(immunity == true){
+            if(difftime(time(NULL), immunity_time)> POWERUP_TIME){
+                immunity = false;
+            }
+        }
+
+        if (difftime(time(NULL), start_time) >= (HARD_MODE_START+slow_down_start) && mode == 0) {
                 mode = 1; display_window(game_win, 2); // Switch to hard mode
             }
             spawn_new_block(); update_blocks_position(); // Update blocks
 
-        if (check_collision_with_player(player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT)) {
-            gameOver(message_win); // Display game over message and wait for 'q'
-            game_running = false; // Set game_running to false to exit the loop
-            continue; // Skip the rest of the current loop iteration
+        if (immunity == false){
+            if (check_collision_with_player(player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT)) {
+                gameOver(message_win); // Display game over message and wait for 'q'
+                break; 
+            }
         }
-    
 
-        if (check_collision_with_player(player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT)) {
-            break; // End game on collision
-        }
 
         werase(game_win); display_window(game_win, mode + 1);
         drawPlayer(game_win, &player); render_blocks(game_win); wrefresh(game_win); // Draw state
@@ -149,7 +156,7 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
         struct timespec ts = get_mode_delay(mode); nanosleep(&ts, NULL); // Delay based on mode
 
         int ch = wgetch(game_win); // Non-blocking input read
-
+        
         switch(ch) {
             case KEY_LEFT:
                 movePlayer(&player, -1, 0); break;
@@ -159,6 +166,20 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
                 movePlayer(&player, 0, -1); break;
             case KEY_DOWN:
                 movePlayer(&player, 0, 1); break;
+
+            case 's':
+                if((difftime(time(NULL), start_time) > HARD_MODE_START) && (slow_down_once ==0)){
+                    mode = 0;
+                    slow_down_start = difftime(time(NULL), start_time)-HARD_MODE_START+POWERUP_TIME; 
+                    slow_down_once += 1;
+                } break;
+
+            case 'i':
+                if (immunity_once==0){
+                    immunity = true;
+                    immunity_once = 1;
+                    immunity_time = time(NULL);
+                } break;
             case 'p':
                 werase(message_win);
                 mvwprintw(message_win, 1, 1, "Game is paused. Press 'P' to continue playing the game.\t");
