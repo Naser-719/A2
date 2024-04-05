@@ -17,5 +17,10 @@ void display_window(WINDOW *win, int level);
 
 void display_level(WINDOW *win, int mode);
 
+
+// In map.h or a suitable header file
+
+
+
 #endif // MAP_H
 

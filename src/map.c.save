@@ -12,7 +12,7 @@
 #define HARD_MODE_START 60 
 
 
-
+// In map.c or the corresponding implementation file
 
 
 
@@ -140,6 +140,22 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
     bool game_running = true;
     while (game_running) {
 
+
+        // Example snippet within your main game loop
+        if (is_slow_mode) {
+            time_t current_time = time(NULL);
+            if (difftime(current_time, slow_mode_start_time) > slow_duration) {
+                // 5 seconds have passed, reset to normal mode
+                is_slow_mode = false;
+            } else {
+                // We're within the slow mode duration; adjust game logic accordingly
+                // For example, if controlling block speed directly, halve it
+                block_speed = slow_block_speed;
+            }
+        } else {
+            // Not in slow mode; ensure normal speed is set
+            block_speed = normal_block_speed;
+        }
         if (difftime(time(NULL), start_time) >= HARD_MODE_START && mode == 0) {
                 mode = 1; display_window(game_win, 2); // Switch to hard mode
             }
@@ -150,6 +166,7 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
             game_running = false; // Set game_running to false to exit the loop
             continue; // Skip the rest of the current loop iteration
         }
+    
 
         if (check_collision_with_player(player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT)) {
             break; // End game on collision
@@ -212,6 +229,7 @@ void game_loop(WINDOW *game_win, WINDOW *message_win) {
         // Refresh the game window to show any updates
         wrefresh(game_win);
         }
+    
 }
 
 
