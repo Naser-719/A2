@@ -35,7 +35,9 @@ best_time.txt:
 Debug: $(OBJ) 
 	$(CC) $(CFLAGS) $^ -o $@
 
-.PHONY: clean Debugger valgrind
+
+
+.PHONY: clean Debugger Mem_valgrind doc
 
 clean:
 	rm -f $(TARGET) $(OBJS) Debug
@@ -46,3 +48,5 @@ Mem_valgrind:
 Debugger:
 	gdb Debug
 
+doc:
+	doxygen ../doc/Doxyfile
