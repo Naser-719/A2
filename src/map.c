@@ -1,16 +1,7 @@
 //Name: Mustafa Al-Hamadani, Naser Issa, Gurmehar Singh
 #include "map.h"
 
-
 int best_time; 
-
-// Function declarations
-struct timespec get_mode_delay(int mode) {
-    int delay_ms = mode == 0 ? EASY_MODE_DELAY_MS : HARD_MODE_DELAY_MS;
-    struct timespec ts = { .tv_sec = delay_ms / 1000, .tv_nsec = (delay_ms % 1000) * 1000000L };
-    return ts;
-}
-
 
 
 void startScreen() {
