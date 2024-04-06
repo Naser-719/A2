@@ -1,0 +1,103 @@
+\hypertarget{blocks_8c}{}\section{blocks.\+c File Reference}
+\label{blocks_8c}\index{blocks.\+c@{blocks.\+c}}
+{\ttfamily \#include $<$ncurses.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}blocks.\+h\char`\"{}}\newline
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{blocks_8c_a693f306b88f7336281e4d1f07754579c}{G\+A\+M\+E\+\_\+\+W\+I\+D\+TH}}~80
+\item 
+\#define \mbox{\hyperlink{blocks_8c_addffa3e327bacbc3da87278442b2b507}{G\+A\+M\+E\+\_\+\+H\+E\+I\+G\+HT}}~30
+\item 
+\#define \mbox{\hyperlink{blocks_8c_aba7f789f3266685ad8840806656e3692}{M\+A\+X\+\_\+\+B\+L\+O\+C\+KS}}~10
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{blocks_8c_a41b0d9826464b70ca4cc06b33a07165e}{initialize\+\_\+blocks}} ()
+\item 
+void \mbox{\hyperlink{blocks_8c_ad238e0c8337c674e8af0576a8e01858b}{create\+\_\+block}} (int index, int width, int height, int speed)
+\item 
+void \mbox{\hyperlink{blocks_8c_af968d5a28f499b44ced4ff6962e24af3}{update\+\_\+blocks\+\_\+position}} ()
+\item 
+void \mbox{\hyperlink{blocks_8c_a2136797c1e05301b26c488fbce7b7114}{render\+\_\+blocks}} (W\+I\+N\+D\+OW $\ast$win)
+\item 
+bool \mbox{\hyperlink{blocks_8c_a2670521612187156e7a85fc1d22ba39d}{check\+\_\+collision\+\_\+with\+\_\+player}} (int playerX, int playerY, int player\+Width, int player\+Height)
+\item 
+void \mbox{\hyperlink{blocks_8c_a1e35dc346ddf93577945c1999d4ce611}{spawn\+\_\+new\+\_\+block}} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structBlock}{Block}} \mbox{\hyperlink{blocks_8c_a5a5f6e9d3072fb717c693cab368c70e1}{blocks}} \mbox{[}\mbox{\hyperlink{blocks_8h_aba7f789f3266685ad8840806656e3692}{M\+A\+X\+\_\+\+B\+L\+O\+C\+KS}}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{blocks_8c_addffa3e327bacbc3da87278442b2b507}\label{blocks_8c_addffa3e327bacbc3da87278442b2b507}} 
+\index{blocks.\+c@{blocks.\+c}!G\+A\+M\+E\+\_\+\+H\+E\+I\+G\+HT@{G\+A\+M\+E\+\_\+\+H\+E\+I\+G\+HT}}
+\index{G\+A\+M\+E\+\_\+\+H\+E\+I\+G\+HT@{G\+A\+M\+E\+\_\+\+H\+E\+I\+G\+HT}!blocks.\+c@{blocks.\+c}}
+\subsubsection{\texorpdfstring{G\+A\+M\+E\+\_\+\+H\+E\+I\+G\+HT}{GAME\_HEIGHT}}
+{\footnotesize\ttfamily \#define G\+A\+M\+E\+\_\+\+H\+E\+I\+G\+HT~30}
+
+\mbox{\Hypertarget{blocks_8c_a693f306b88f7336281e4d1f07754579c}\label{blocks_8c_a693f306b88f7336281e4d1f07754579c}} 
+\index{blocks.\+c@{blocks.\+c}!G\+A\+M\+E\+\_\+\+W\+I\+D\+TH@{G\+A\+M\+E\+\_\+\+W\+I\+D\+TH}}
+\index{G\+A\+M\+E\+\_\+\+W\+I\+D\+TH@{G\+A\+M\+E\+\_\+\+W\+I\+D\+TH}!blocks.\+c@{blocks.\+c}}
+\subsubsection{\texorpdfstring{G\+A\+M\+E\+\_\+\+W\+I\+D\+TH}{GAME\_WIDTH}}
+{\footnotesize\ttfamily \#define G\+A\+M\+E\+\_\+\+W\+I\+D\+TH~80}
+
+\mbox{\Hypertarget{blocks_8c_aba7f789f3266685ad8840806656e3692}\label{blocks_8c_aba7f789f3266685ad8840806656e3692}} 
+\index{blocks.\+c@{blocks.\+c}!M\+A\+X\+\_\+\+B\+L\+O\+C\+KS@{M\+A\+X\+\_\+\+B\+L\+O\+C\+KS}}
+\index{M\+A\+X\+\_\+\+B\+L\+O\+C\+KS@{M\+A\+X\+\_\+\+B\+L\+O\+C\+KS}!blocks.\+c@{blocks.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+X\+\_\+\+B\+L\+O\+C\+KS}{MAX\_BLOCKS}}
+{\footnotesize\ttfamily \#define M\+A\+X\+\_\+\+B\+L\+O\+C\+KS~10}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{blocks_8c_a2670521612187156e7a85fc1d22ba39d}\label{blocks_8c_a2670521612187156e7a85fc1d22ba39d}} 
+\index{blocks.\+c@{blocks.\+c}!check\+\_\+collision\+\_\+with\+\_\+player@{check\+\_\+collision\+\_\+with\+\_\+player}}
+\index{check\+\_\+collision\+\_\+with\+\_\+player@{check\+\_\+collision\+\_\+with\+\_\+player}!blocks.\+c@{blocks.\+c}}
+\subsubsection{\texorpdfstring{check\+\_\+collision\+\_\+with\+\_\+player()}{check\_collision\_with\_player()}}
+{\footnotesize\ttfamily bool check\+\_\+collision\+\_\+with\+\_\+player (\begin{DoxyParamCaption}\item[{int}]{playerX,  }\item[{int}]{playerY,  }\item[{int}]{player\+Width,  }\item[{int}]{player\+Height }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{blocks_8c_ad238e0c8337c674e8af0576a8e01858b}\label{blocks_8c_ad238e0c8337c674e8af0576a8e01858b}} 
+\index{blocks.\+c@{blocks.\+c}!create\+\_\+block@{create\+\_\+block}}
+\index{create\+\_\+block@{create\+\_\+block}!blocks.\+c@{blocks.\+c}}
+\subsubsection{\texorpdfstring{create\+\_\+block()}{create\_block()}}
+{\footnotesize\ttfamily void create\+\_\+block (\begin{DoxyParamCaption}\item[{int}]{index,  }\item[{int}]{width,  }\item[{int}]{height,  }\item[{int}]{speed }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{blocks_8c_a41b0d9826464b70ca4cc06b33a07165e}\label{blocks_8c_a41b0d9826464b70ca4cc06b33a07165e}} 
+\index{blocks.\+c@{blocks.\+c}!initialize\+\_\+blocks@{initialize\+\_\+blocks}}
+\index{initialize\+\_\+blocks@{initialize\+\_\+blocks}!blocks.\+c@{blocks.\+c}}
+\subsubsection{\texorpdfstring{initialize\+\_\+blocks()}{initialize\_blocks()}}
+{\footnotesize\ttfamily void initialize\+\_\+blocks (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{blocks_8c_a2136797c1e05301b26c488fbce7b7114}\label{blocks_8c_a2136797c1e05301b26c488fbce7b7114}} 
+\index{blocks.\+c@{blocks.\+c}!render\+\_\+blocks@{render\+\_\+blocks}}
+\index{render\+\_\+blocks@{render\+\_\+blocks}!blocks.\+c@{blocks.\+c}}
+\subsubsection{\texorpdfstring{render\+\_\+blocks()}{render\_blocks()}}
+{\footnotesize\ttfamily void render\+\_\+blocks (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{win }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{blocks_8c_a1e35dc346ddf93577945c1999d4ce611}\label{blocks_8c_a1e35dc346ddf93577945c1999d4ce611}} 
+\index{blocks.\+c@{blocks.\+c}!spawn\+\_\+new\+\_\+block@{spawn\+\_\+new\+\_\+block}}
+\index{spawn\+\_\+new\+\_\+block@{spawn\+\_\+new\+\_\+block}!blocks.\+c@{blocks.\+c}}
+\subsubsection{\texorpdfstring{spawn\+\_\+new\+\_\+block()}{spawn\_new\_block()}}
+{\footnotesize\ttfamily void spawn\+\_\+new\+\_\+block (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{blocks_8c_af968d5a28f499b44ced4ff6962e24af3}\label{blocks_8c_af968d5a28f499b44ced4ff6962e24af3}} 
+\index{blocks.\+c@{blocks.\+c}!update\+\_\+blocks\+\_\+position@{update\+\_\+blocks\+\_\+position}}
+\index{update\+\_\+blocks\+\_\+position@{update\+\_\+blocks\+\_\+position}!blocks.\+c@{blocks.\+c}}
+\subsubsection{\texorpdfstring{update\+\_\+blocks\+\_\+position()}{update\_blocks\_position()}}
+{\footnotesize\ttfamily void update\+\_\+blocks\+\_\+position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{blocks_8c_a5a5f6e9d3072fb717c693cab368c70e1}\label{blocks_8c_a5a5f6e9d3072fb717c693cab368c70e1}} 
+\index{blocks.\+c@{blocks.\+c}!blocks@{blocks}}
+\index{blocks@{blocks}!blocks.\+c@{blocks.\+c}}
+\subsubsection{\texorpdfstring{blocks}{blocks}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structBlock}{Block}} blocks\mbox{[}\mbox{\hyperlink{blocks_8h_aba7f789f3266685ad8840806656e3692}{M\+A\+X\+\_\+\+B\+L\+O\+C\+KS}}\mbox{]}}
+

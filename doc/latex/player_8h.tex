@@ -1,0 +1,76 @@
+\hypertarget{player_8h}{}\section{player.\+h File Reference}
+\label{player_8h}\index{player.\+h@{player.\+h}}
+{\ttfamily \#include $<$ncurses.\+h$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structPlayer}{Player}}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{player_8h_a89e2ac9092225702ac543695d0771d38}{P\+L\+A\+Y\+E\+R\+\_\+\+W\+I\+D\+TH}}~2.\+5
+\item 
+\#define \mbox{\hyperlink{player_8h_a2712b06fd52f25adca031d05c3e0c09b}{P\+L\+A\+Y\+E\+R\+\_\+\+H\+E\+I\+G\+HT}}~2.\+5
+\item 
+\#define \mbox{\hyperlink{player_8h_a2cd109632a6dcccaa80b43561b1ab700}{S\+C\+R\+E\+E\+N\+\_\+\+W\+I\+D\+TH}}~80
+\item 
+\#define \mbox{\hyperlink{player_8h_a6974d08a74da681b3957b2fead2608b8}{S\+C\+R\+E\+E\+N\+\_\+\+H\+E\+I\+G\+HT}}~30
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{player_8h_a5124117a881fd8f067de85b129afdbd6}{init\+Player}} (\mbox{\hyperlink{structPlayer}{Player}} $\ast$player)
+\item 
+void \mbox{\hyperlink{player_8h_a3b331a744fc91818d0f84eed7fed41da}{move\+Player}} (\mbox{\hyperlink{structPlayer}{Player}} $\ast$player, int deltaX, int deltaY)
+\item 
+void \mbox{\hyperlink{player_8h_a83b95a07bb123efc3153bc2c2d90247a}{draw\+Player}} (W\+I\+N\+D\+OW $\ast$win, const \mbox{\hyperlink{structPlayer}{Player}} $\ast$player)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{player_8h_a2712b06fd52f25adca031d05c3e0c09b}\label{player_8h_a2712b06fd52f25adca031d05c3e0c09b}} 
+\index{player.\+h@{player.\+h}!P\+L\+A\+Y\+E\+R\+\_\+\+H\+E\+I\+G\+HT@{P\+L\+A\+Y\+E\+R\+\_\+\+H\+E\+I\+G\+HT}}
+\index{P\+L\+A\+Y\+E\+R\+\_\+\+H\+E\+I\+G\+HT@{P\+L\+A\+Y\+E\+R\+\_\+\+H\+E\+I\+G\+HT}!player.\+h@{player.\+h}}
+\subsubsection{\texorpdfstring{P\+L\+A\+Y\+E\+R\+\_\+\+H\+E\+I\+G\+HT}{PLAYER\_HEIGHT}}
+{\footnotesize\ttfamily \#define P\+L\+A\+Y\+E\+R\+\_\+\+H\+E\+I\+G\+HT~2.\+5}
+
+\mbox{\Hypertarget{player_8h_a89e2ac9092225702ac543695d0771d38}\label{player_8h_a89e2ac9092225702ac543695d0771d38}} 
+\index{player.\+h@{player.\+h}!P\+L\+A\+Y\+E\+R\+\_\+\+W\+I\+D\+TH@{P\+L\+A\+Y\+E\+R\+\_\+\+W\+I\+D\+TH}}
+\index{P\+L\+A\+Y\+E\+R\+\_\+\+W\+I\+D\+TH@{P\+L\+A\+Y\+E\+R\+\_\+\+W\+I\+D\+TH}!player.\+h@{player.\+h}}
+\subsubsection{\texorpdfstring{P\+L\+A\+Y\+E\+R\+\_\+\+W\+I\+D\+TH}{PLAYER\_WIDTH}}
+{\footnotesize\ttfamily \#define P\+L\+A\+Y\+E\+R\+\_\+\+W\+I\+D\+TH~2.\+5}
+
+\mbox{\Hypertarget{player_8h_a6974d08a74da681b3957b2fead2608b8}\label{player_8h_a6974d08a74da681b3957b2fead2608b8}} 
+\index{player.\+h@{player.\+h}!S\+C\+R\+E\+E\+N\+\_\+\+H\+E\+I\+G\+HT@{S\+C\+R\+E\+E\+N\+\_\+\+H\+E\+I\+G\+HT}}
+\index{S\+C\+R\+E\+E\+N\+\_\+\+H\+E\+I\+G\+HT@{S\+C\+R\+E\+E\+N\+\_\+\+H\+E\+I\+G\+HT}!player.\+h@{player.\+h}}
+\subsubsection{\texorpdfstring{S\+C\+R\+E\+E\+N\+\_\+\+H\+E\+I\+G\+HT}{SCREEN\_HEIGHT}}
+{\footnotesize\ttfamily \#define S\+C\+R\+E\+E\+N\+\_\+\+H\+E\+I\+G\+HT~30}
+
+\mbox{\Hypertarget{player_8h_a2cd109632a6dcccaa80b43561b1ab700}\label{player_8h_a2cd109632a6dcccaa80b43561b1ab700}} 
+\index{player.\+h@{player.\+h}!S\+C\+R\+E\+E\+N\+\_\+\+W\+I\+D\+TH@{S\+C\+R\+E\+E\+N\+\_\+\+W\+I\+D\+TH}}
+\index{S\+C\+R\+E\+E\+N\+\_\+\+W\+I\+D\+TH@{S\+C\+R\+E\+E\+N\+\_\+\+W\+I\+D\+TH}!player.\+h@{player.\+h}}
+\subsubsection{\texorpdfstring{S\+C\+R\+E\+E\+N\+\_\+\+W\+I\+D\+TH}{SCREEN\_WIDTH}}
+{\footnotesize\ttfamily \#define S\+C\+R\+E\+E\+N\+\_\+\+W\+I\+D\+TH~80}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{player_8h_a83b95a07bb123efc3153bc2c2d90247a}\label{player_8h_a83b95a07bb123efc3153bc2c2d90247a}} 
+\index{player.\+h@{player.\+h}!draw\+Player@{draw\+Player}}
+\index{draw\+Player@{draw\+Player}!player.\+h@{player.\+h}}
+\subsubsection{\texorpdfstring{draw\+Player()}{drawPlayer()}}
+{\footnotesize\ttfamily void draw\+Player (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{win,  }\item[{const \mbox{\hyperlink{structPlayer}{Player}} $\ast$}]{player }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{player_8h_a5124117a881fd8f067de85b129afdbd6}\label{player_8h_a5124117a881fd8f067de85b129afdbd6}} 
+\index{player.\+h@{player.\+h}!init\+Player@{init\+Player}}
+\index{init\+Player@{init\+Player}!player.\+h@{player.\+h}}
+\subsubsection{\texorpdfstring{init\+Player()}{initPlayer()}}
+{\footnotesize\ttfamily void init\+Player (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structPlayer}{Player}} $\ast$}]{player }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{player_8h_a3b331a744fc91818d0f84eed7fed41da}\label{player_8h_a3b331a744fc91818d0f84eed7fed41da}} 
+\index{player.\+h@{player.\+h}!move\+Player@{move\+Player}}
+\index{move\+Player@{move\+Player}!player.\+h@{player.\+h}}
+\subsubsection{\texorpdfstring{move\+Player()}{movePlayer()}}
+{\footnotesize\ttfamily void move\+Player (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structPlayer}{Player}} $\ast$}]{player,  }\item[{int}]{deltaX,  }\item[{int}]{deltaY }\end{DoxyParamCaption})}
+
