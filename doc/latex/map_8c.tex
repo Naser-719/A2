@@ -1,0 +1,111 @@
+\hypertarget{map_8c}{}\section{map.\+c File Reference}
+\label{map_8c}\index{map.\+c@{map.\+c}}
+{\ttfamily \#include \char`\"{}map.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct timespec \mbox{\hyperlink{map_8c_adf12c6b80442578c6dd1fd6311b07fd0}{get\+\_\+mode\+\_\+delay}} (int mode)
+\item 
+void \mbox{\hyperlink{map_8c_aea9312c2a12fc8e9fef16a9bdfd9b581}{start\+Screen}} ()
+\item 
+void \mbox{\hyperlink{map_8c_af79d8158ee7772529e18c80072df4760}{save\+\_\+best\+\_\+time}} (int best\+Time)
+\item 
+int \mbox{\hyperlink{map_8c_a790c86a091a8ebc001a16a844b5b6327}{load\+\_\+best\+\_\+time}} ()
+\item 
+void \mbox{\hyperlink{map_8c_ae39cae92bd484e7850ebc62066cd73b6}{display\+Instructions}} (W\+I\+N\+D\+OW $\ast$win, char power\+\_\+up)
+\item 
+void \mbox{\hyperlink{map_8c_ac83e2b1211a0a3c9bf71c08f2e458ee4}{display\+\_\+window}} (W\+I\+N\+D\+OW $\ast$win)
+\item 
+void \mbox{\hyperlink{map_8c_a5bb386008480201364471c2bc47c0502}{delay}} (int milliseconds)
+\item 
+void \mbox{\hyperlink{map_8c_a0574fd2dd5fe324cfa31316cf29e4bb6}{game\+Over}} (W\+I\+N\+D\+OW $\ast$message\+\_\+win, int total\+\_\+time)
+\item 
+void \mbox{\hyperlink{map_8c_ad7424fa7c32d3683ccc0142a3b12a3f8}{game\+\_\+loop}} (W\+I\+N\+D\+OW $\ast$game\+\_\+win, W\+I\+N\+D\+OW $\ast$message\+\_\+win)
+\item 
+bool \mbox{\hyperlink{map_8c_a251b1d8e3bed8986354895d15f705a75}{quit\+\_\+game}} (int ch, W\+I\+N\+D\+OW $\ast$message\+\_\+win)
+\item 
+void \mbox{\hyperlink{map_8c_a945c1ecf895c4c2dec31c0c6ef3c069c}{pause\+\_\+game}} (int ch, W\+I\+N\+D\+OW $\ast$message\+\_\+win)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{map_8c_a6fc57573c49dd1bb33c63d80b0211fe5}{best\+\_\+time}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{map_8c_a5bb386008480201364471c2bc47c0502}\label{map_8c_a5bb386008480201364471c2bc47c0502}} 
+\index{map.\+c@{map.\+c}!delay@{delay}}
+\index{delay@{delay}!map.\+c@{map.\+c}}
+\subsubsection{\texorpdfstring{delay()}{delay()}}
+{\footnotesize\ttfamily void delay (\begin{DoxyParamCaption}\item[{int}]{milliseconds }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{map_8c_ac83e2b1211a0a3c9bf71c08f2e458ee4}\label{map_8c_ac83e2b1211a0a3c9bf71c08f2e458ee4}} 
+\index{map.\+c@{map.\+c}!display\+\_\+window@{display\+\_\+window}}
+\index{display\+\_\+window@{display\+\_\+window}!map.\+c@{map.\+c}}
+\subsubsection{\texorpdfstring{display\+\_\+window()}{display\_window()}}
+{\footnotesize\ttfamily void display\+\_\+window (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{win }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{map_8c_ae39cae92bd484e7850ebc62066cd73b6}\label{map_8c_ae39cae92bd484e7850ebc62066cd73b6}} 
+\index{map.\+c@{map.\+c}!display\+Instructions@{display\+Instructions}}
+\index{display\+Instructions@{display\+Instructions}!map.\+c@{map.\+c}}
+\subsubsection{\texorpdfstring{display\+Instructions()}{displayInstructions()}}
+{\footnotesize\ttfamily void display\+Instructions (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{win,  }\item[{char}]{power\+\_\+up }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{map_8c_ad7424fa7c32d3683ccc0142a3b12a3f8}\label{map_8c_ad7424fa7c32d3683ccc0142a3b12a3f8}} 
+\index{map.\+c@{map.\+c}!game\+\_\+loop@{game\+\_\+loop}}
+\index{game\+\_\+loop@{game\+\_\+loop}!map.\+c@{map.\+c}}
+\subsubsection{\texorpdfstring{game\+\_\+loop()}{game\_loop()}}
+{\footnotesize\ttfamily void game\+\_\+loop (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{game\+\_\+win,  }\item[{W\+I\+N\+D\+OW $\ast$}]{message\+\_\+win }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{map_8c_a0574fd2dd5fe324cfa31316cf29e4bb6}\label{map_8c_a0574fd2dd5fe324cfa31316cf29e4bb6}} 
+\index{map.\+c@{map.\+c}!game\+Over@{game\+Over}}
+\index{game\+Over@{game\+Over}!map.\+c@{map.\+c}}
+\subsubsection{\texorpdfstring{game\+Over()}{gameOver()}}
+{\footnotesize\ttfamily void game\+Over (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{message\+\_\+win,  }\item[{int}]{total\+\_\+time }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{map_8c_adf12c6b80442578c6dd1fd6311b07fd0}\label{map_8c_adf12c6b80442578c6dd1fd6311b07fd0}} 
+\index{map.\+c@{map.\+c}!get\+\_\+mode\+\_\+delay@{get\+\_\+mode\+\_\+delay}}
+\index{get\+\_\+mode\+\_\+delay@{get\+\_\+mode\+\_\+delay}!map.\+c@{map.\+c}}
+\subsubsection{\texorpdfstring{get\+\_\+mode\+\_\+delay()}{get\_mode\_delay()}}
+{\footnotesize\ttfamily struct timespec get\+\_\+mode\+\_\+delay (\begin{DoxyParamCaption}\item[{int}]{mode }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{map_8c_a790c86a091a8ebc001a16a844b5b6327}\label{map_8c_a790c86a091a8ebc001a16a844b5b6327}} 
+\index{map.\+c@{map.\+c}!load\+\_\+best\+\_\+time@{load\+\_\+best\+\_\+time}}
+\index{load\+\_\+best\+\_\+time@{load\+\_\+best\+\_\+time}!map.\+c@{map.\+c}}
+\subsubsection{\texorpdfstring{load\+\_\+best\+\_\+time()}{load\_best\_time()}}
+{\footnotesize\ttfamily int load\+\_\+best\+\_\+time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{map_8c_a945c1ecf895c4c2dec31c0c6ef3c069c}\label{map_8c_a945c1ecf895c4c2dec31c0c6ef3c069c}} 
+\index{map.\+c@{map.\+c}!pause\+\_\+game@{pause\+\_\+game}}
+\index{pause\+\_\+game@{pause\+\_\+game}!map.\+c@{map.\+c}}
+\subsubsection{\texorpdfstring{pause\+\_\+game()}{pause\_game()}}
+{\footnotesize\ttfamily void pause\+\_\+game (\begin{DoxyParamCaption}\item[{int}]{ch,  }\item[{W\+I\+N\+D\+OW $\ast$}]{message\+\_\+win }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{map_8c_a251b1d8e3bed8986354895d15f705a75}\label{map_8c_a251b1d8e3bed8986354895d15f705a75}} 
+\index{map.\+c@{map.\+c}!quit\+\_\+game@{quit\+\_\+game}}
+\index{quit\+\_\+game@{quit\+\_\+game}!map.\+c@{map.\+c}}
+\subsubsection{\texorpdfstring{quit\+\_\+game()}{quit\_game()}}
+{\footnotesize\ttfamily bool quit\+\_\+game (\begin{DoxyParamCaption}\item[{int}]{ch,  }\item[{W\+I\+N\+D\+OW $\ast$}]{message\+\_\+win }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{map_8c_af79d8158ee7772529e18c80072df4760}\label{map_8c_af79d8158ee7772529e18c80072df4760}} 
+\index{map.\+c@{map.\+c}!save\+\_\+best\+\_\+time@{save\+\_\+best\+\_\+time}}
+\index{save\+\_\+best\+\_\+time@{save\+\_\+best\+\_\+time}!map.\+c@{map.\+c}}
+\subsubsection{\texorpdfstring{save\+\_\+best\+\_\+time()}{save\_best\_time()}}
+{\footnotesize\ttfamily void save\+\_\+best\+\_\+time (\begin{DoxyParamCaption}\item[{int}]{best\+Time }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{map_8c_aea9312c2a12fc8e9fef16a9bdfd9b581}\label{map_8c_aea9312c2a12fc8e9fef16a9bdfd9b581}} 
+\index{map.\+c@{map.\+c}!start\+Screen@{start\+Screen}}
+\index{start\+Screen@{start\+Screen}!map.\+c@{map.\+c}}
+\subsubsection{\texorpdfstring{start\+Screen()}{startScreen()}}
+{\footnotesize\ttfamily void start\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{map_8c_a6fc57573c49dd1bb33c63d80b0211fe5}\label{map_8c_a6fc57573c49dd1bb33c63d80b0211fe5}} 
+\index{map.\+c@{map.\+c}!best\+\_\+time@{best\+\_\+time}}
+\index{best\+\_\+time@{best\+\_\+time}!map.\+c@{map.\+c}}
+\subsubsection{\texorpdfstring{best\+\_\+time}{best\_time}}
+{\footnotesize\ttfamily int best\+\_\+time}
+
