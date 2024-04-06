@@ -17,7 +17,7 @@ $(TARGET): $(OBJS)
 	mkdir -p $(OUTDIR)
 	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@ 
 	
-main.o: main.c main.h
+main.o: main.c 
 	$(CC) $(CFLAGS) -c $<
 
 map.o: map.c  map.h best_time.txt

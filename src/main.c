@@ -1,11 +1,11 @@
 //Name: Mustafa Al-Hamadani, Naser Issa, Gurmehar Singh
 #include <ncurses.h>
-#include <stdlib.h> // for srand, rand
-#include <time.h>   // for time, nanosleep
-#include "blocks.h" // for block 
-#include "player.h"  // for player definitions and functions
-#include "map.h"     // for map definitions and functions
-#include "main.h"
+#include <stdlib.h> 
+#include <time.h> 
+#include "blocks.h" 
+#include "player.h"  
+#include "map.h"     
+
 
 
 int main() {
@@ -29,10 +29,3 @@ int main() {
     return 0;
 }
 
-
-
-// struct timespec get_mode_delay(int mode) {
-//     int delay_ms = mode == 0 ? EASY_MODE_DELAY_MS : HARD_MODE_DELAY_MS;
-//     struct timespec ts = { .tv_sec = delay_ms / 1000, .tv_nsec = (delay_ms % 1000) * 1000000L };
-//     return ts;
-// }
