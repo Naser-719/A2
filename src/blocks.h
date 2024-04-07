@@ -1,9 +1,14 @@
-//!Name: Mustafa Al-Hamadani, Naser Issa, Gurmehar Singh
+//Name: Mustafa Al-Hamadani, Naser Issa, Gurmehar Singh
+
 /**
- * Function prototypes for block handling in the game Skyfall.
- * This header file contains the prototypes of functions used to
- * create, move, render, and detect collisions of falling blocks in the game.
+ * @file blocks.h
+ * @brief Function prototypes and structures for managing falling blocks in a game.
+ *
+ * This file contains the external declaration of the blocks array and the prototypes
+ * for functions managing blocks including initialization, updating positions, rendering,
+ * collision detection, and spawning new blocks.
  */
+
 
 #ifndef BLOCKS_H
 #define BLOCKS_H
@@ -37,15 +42,6 @@ typedef struct {
     bool active;///< Indicates whether the block is active (falling) or not.
 } Block;
 
-
-/**
- * @file blocks.h
- * @brief Function prototypes and structures for managing falling blocks in a game.
- *
- * This file contains the external declaration of the blocks array and the prototypes
- * for functions managing blocks including initialization, updating positions, rendering,
- * collision detection, and spawning new blocks.
- */
 
 extern Block blocks[MAX_BLOCKS]; /*!< Array of blocks used in the game */
 

@@ -49,7 +49,7 @@ Debugger:
 	gdb Debug
 
 clean_doc:
-	rm -f ../doc/html ../doc/latex
+	rm -rf ../doc/html ../doc/latex
 
 doc:
 	doxygen ../doc/Doxyfile
