@@ -16,17 +16,17 @@
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{blocks_8c_a41b0d9826464b70ca4cc06b33a07165e}{initialize\+\_\+blocks}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Initialize all blocks in the game. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{blocks_8c_ad238e0c8337c674e8af0576a8e01858b}{create\+\_\+block}} (int index, int width, int height, int speed)
-\item 
+\begin{DoxyCompactList}\small\item\em Creates a new block and places it at the top of the screen. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{blocks_8c_af968d5a28f499b44ced4ff6962e24af3}{update\+\_\+blocks\+\_\+position}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Updates the position of each active block. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{blocks_8c_a2136797c1e05301b26c488fbce7b7114}{render\+\_\+blocks}} (W\+I\+N\+D\+OW $\ast$win)
-\item 
+\begin{DoxyCompactList}\small\item\em Draws the blocks on the given window. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{blocks_8c_a2670521612187156e7a85fc1d22ba39d}{check\+\_\+collision\+\_\+with\+\_\+player}} (int playerX, int playerY, int player\+Width, int player\+Height)
-\item 
+\begin{DoxyCompactList}\small\item\em Checks for collision between the player and any block. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{blocks_8c_a1e35dc346ddf93577945c1999d4ce611}{spawn\+\_\+new\+\_\+block}} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Spawns a new block by finding an inactive block and initializing it. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
@@ -62,37 +62,91 @@ void \mbox{\hyperlink{blocks_8c_a1e35dc346ddf93577945c1999d4ce611}{spawn\+\_\+ne
 \subsubsection{\texorpdfstring{check\+\_\+collision\+\_\+with\+\_\+player()}{check\_collision\_with\_player()}}
 {\footnotesize\ttfamily bool check\+\_\+collision\+\_\+with\+\_\+player (\begin{DoxyParamCaption}\item[{int}]{playerX,  }\item[{int}]{playerY,  }\item[{int}]{player\+Width,  }\item[{int}]{player\+Height }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{blocks_8c_ad238e0c8337c674e8af0576a8e01858b}\label{blocks_8c_ad238e0c8337c674e8af0576a8e01858b}} 
+
+
+Checks for collision between the player and any block. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em playerX} & The X coordinate of the player. \\
+\hline
+{\em playerY} & The Y coordinate of the player. \\
+\hline
+{\em player\+Width} & The width of the player. \\
+\hline
+{\em player\+Height} & The height of the player. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if there is a collision, false otherwise.
+\end{DoxyReturn}
+Performs bounding box collision detection between the player and all active blocks. Assumes that the player is a rectangle for the purposes of collision detection. \mbox{\Hypertarget{blocks_8c_ad238e0c8337c674e8af0576a8e01858b}\label{blocks_8c_ad238e0c8337c674e8af0576a8e01858b}} 
 \index{blocks.\+c@{blocks.\+c}!create\+\_\+block@{create\+\_\+block}}
 \index{create\+\_\+block@{create\+\_\+block}!blocks.\+c@{blocks.\+c}}
 \subsubsection{\texorpdfstring{create\+\_\+block()}{create\_block()}}
 {\footnotesize\ttfamily void create\+\_\+block (\begin{DoxyParamCaption}\item[{int}]{index,  }\item[{int}]{width,  }\item[{int}]{height,  }\item[{int}]{speed }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{blocks_8c_a41b0d9826464b70ca4cc06b33a07165e}\label{blocks_8c_a41b0d9826464b70ca4cc06b33a07165e}} 
+
+
+Creates a new block and places it at the top of the screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & The index of the block in the blocks array. \\
+\hline
+{\em width} & The width of the new block. \\
+\hline
+{\em height} & The height of the new block. \\
+\hline
+{\em speed} & The falling speed of the new block.\\
+\hline
+\end{DoxyParams}
+This function initializes a block at the given index in the blocks array, setting its size, initial position, and falling speed. \mbox{\Hypertarget{blocks_8c_a41b0d9826464b70ca4cc06b33a07165e}\label{blocks_8c_a41b0d9826464b70ca4cc06b33a07165e}} 
 \index{blocks.\+c@{blocks.\+c}!initialize\+\_\+blocks@{initialize\+\_\+blocks}}
 \index{initialize\+\_\+blocks@{initialize\+\_\+blocks}!blocks.\+c@{blocks.\+c}}
 \subsubsection{\texorpdfstring{initialize\+\_\+blocks()}{initialize\_blocks()}}
 {\footnotesize\ttfamily void initialize\+\_\+blocks (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{blocks_8c_a2136797c1e05301b26c488fbce7b7114}\label{blocks_8c_a2136797c1e05301b26c488fbce7b7114}} 
+
+
+Initialize all blocks in the game. 
+
+Sets up the blocks array and initializes each block to an inactive status. \mbox{\Hypertarget{blocks_8c_a2136797c1e05301b26c488fbce7b7114}\label{blocks_8c_a2136797c1e05301b26c488fbce7b7114}} 
 \index{blocks.\+c@{blocks.\+c}!render\+\_\+blocks@{render\+\_\+blocks}}
 \index{render\+\_\+blocks@{render\+\_\+blocks}!blocks.\+c@{blocks.\+c}}
 \subsubsection{\texorpdfstring{render\+\_\+blocks()}{render\_blocks()}}
 {\footnotesize\ttfamily void render\+\_\+blocks (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{win }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{blocks_8c_a1e35dc346ddf93577945c1999d4ce611}\label{blocks_8c_a1e35dc346ddf93577945c1999d4ce611}} 
+
+
+Draws the blocks on the given window. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em win} & A pointer to the ncurses window where the blocks will be rendered.\\
+\hline
+\end{DoxyParams}
+This function iterates over all active blocks and draws them on the specified ncurses window. \mbox{\Hypertarget{blocks_8c_a1e35dc346ddf93577945c1999d4ce611}\label{blocks_8c_a1e35dc346ddf93577945c1999d4ce611}} 
 \index{blocks.\+c@{blocks.\+c}!spawn\+\_\+new\+\_\+block@{spawn\+\_\+new\+\_\+block}}
 \index{spawn\+\_\+new\+\_\+block@{spawn\+\_\+new\+\_\+block}!blocks.\+c@{blocks.\+c}}
 \subsubsection{\texorpdfstring{spawn\+\_\+new\+\_\+block()}{spawn\_new\_block()}}
 {\footnotesize\ttfamily void spawn\+\_\+new\+\_\+block (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{blocks_8c_af968d5a28f499b44ced4ff6962e24af3}\label{blocks_8c_af968d5a28f499b44ced4ff6962e24af3}} 
+
+
+Spawns a new block by finding an inactive block and initializing it. 
+
+This function iterates through the global {\ttfamily blocks} array to locate an inactive block. When it finds one, it sets the block with random dimensions and a predefined speed, then marks it as active. Ensure that the random number generator is initialized with {\ttfamily srand()} before calling this function to ensure that block sizes are truly random. \mbox{\Hypertarget{blocks_8c_af968d5a28f499b44ced4ff6962e24af3}\label{blocks_8c_af968d5a28f499b44ced4ff6962e24af3}} 
 \index{blocks.\+c@{blocks.\+c}!update\+\_\+blocks\+\_\+position@{update\+\_\+blocks\+\_\+position}}
 \index{update\+\_\+blocks\+\_\+position@{update\+\_\+blocks\+\_\+position}!blocks.\+c@{blocks.\+c}}
 \subsubsection{\texorpdfstring{update\+\_\+blocks\+\_\+position()}{update\_blocks\_position()}}
 {\footnotesize\ttfamily void update\+\_\+blocks\+\_\+position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
+
+Updates the position of each active block. 
+
+Moves each active block down the screen according to its speed and deactivates blocks that have moved past the bottom of the screen. 
 
 \subsection{Variable Documentation}
 \mbox{\Hypertarget{blocks_8c_a5a5f6e9d3072fb717c693cab368c70e1}\label{blocks_8c_a5a5f6e9d3072fb717c693cab368c70e1}} 
@@ -101,3 +155,4 @@ void \mbox{\hyperlink{blocks_8c_a1e35dc346ddf93577945c1999d4ce611}{spawn\+\_\+ne
 \subsubsection{\texorpdfstring{blocks}{blocks}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structBlock}{Block}} blocks\mbox{[}\mbox{\hyperlink{blocks_8h_aba7f789f3266685ad8840806656e3692}{M\+A\+X\+\_\+\+B\+L\+O\+C\+KS}}\mbox{]}}
 
+Array of blocks used in the game 

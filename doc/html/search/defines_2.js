@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['game_5fheight',['GAME_HEIGHT',['../blocks_8c.html#addffa3e327bacbc3da87278442b2b507',1,'blocks.c']]],
-  ['game_5fwidth',['GAME_WIDTH',['../blocks_8c.html#a693f306b88f7336281e4d1f07754579c',1,'blocks.c']]]
+  ['hard_5fmode_5fdelay_5fms',['HARD_MODE_DELAY_MS',['../map_8h.html#a66a015272d6ac63ac568dab75281911d',1,'map.h']]],
+  ['hard_5fmode_5fstart',['HARD_MODE_START',['../map_8h.html#a3d4bf1cd1123a80de54e2569c5c789ae',1,'map.h']]]
 ];

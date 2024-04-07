@@ -19,15 +19,42 @@ void \mbox{\hyperlink{player_8c_a83b95a07bb123efc3153bc2c2d90247a}{draw\+Player}
 \subsubsection{\texorpdfstring{draw\+Player()}{drawPlayer()}}
 {\footnotesize\ttfamily void draw\+Player (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{win,  }\item[{const \mbox{\hyperlink{structPlayer}{Player}} $\ast$}]{player }\end{DoxyParamCaption})}
 
+Draws the player character on the game window.
+
+
+\begin{DoxyParams}{Parameters}
+{\em win} & A pointer to the W\+I\+N\+D\+OW structure where the player should be drawn. \\
+\hline
+{\em player} & A constant pointer to the \mbox{\hyperlink{structPlayer}{Player}} structure to be drawn. \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{player_8c_a5124117a881fd8f067de85b129afdbd6}\label{player_8c_a5124117a881fd8f067de85b129afdbd6}} 
 \index{player.\+c@{player.\+c}!init\+Player@{init\+Player}}
 \index{init\+Player@{init\+Player}!player.\+c@{player.\+c}}
 \subsubsection{\texorpdfstring{init\+Player()}{initPlayer()}}
 {\footnotesize\ttfamily void init\+Player (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structPlayer}{Player}} $\ast$}]{player }\end{DoxyParamCaption})}
 
+Initializes the player\textquotesingle{}s position to predefined coordinates and sets initial values for power-\/ups.
+
+
+\begin{DoxyParams}{Parameters}
+{\em player} & A pointer to the \mbox{\hyperlink{structPlayer}{Player}} structure to be initialized. \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{player_8c_a3b331a744fc91818d0f84eed7fed41da}\label{player_8c_a3b331a744fc91818d0f84eed7fed41da}} 
 \index{player.\+c@{player.\+c}!move\+Player@{move\+Player}}
 \index{move\+Player@{move\+Player}!player.\+c@{player.\+c}}
 \subsubsection{\texorpdfstring{move\+Player()}{movePlayer()}}
 {\footnotesize\ttfamily void move\+Player (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structPlayer}{Player}} $\ast$}]{player,  }\item[{int}]{deltaX,  }\item[{int}]{deltaY }\end{DoxyParamCaption})}
 
+Moves the player based on the input. Allows for both horizontal and vertical movement.
+
+
+\begin{DoxyParams}{Parameters}
+{\em player} & A pointer to the \mbox{\hyperlink{structPlayer}{Player}} structure whose position is to be updated. \\
+\hline
+{\em deltaX} & The change in the horizontal position (left/right movement). \\
+\hline
+{\em deltaY} & The change in the vertical position (up/down movement). \\
+\hline
+\end{DoxyParams}

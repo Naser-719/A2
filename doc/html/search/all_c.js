@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['render_5fblocks',['render_blocks',['../blocks_8c.html#a2136797c1e05301b26c488fbce7b7114',1,'render_blocks(WINDOW *win):&#160;blocks.c'],['../blocks_8h.html#a2136797c1e05301b26c488fbce7b7114',1,'render_blocks(WINDOW *win):&#160;blocks.c']]]
+  ['quit_5fgame',['quit_game',['../map_8c.html#a251b1d8e3bed8986354895d15f705a75',1,'quit_game(int ch, WINDOW *message_win):&#160;map.c'],['../map_8h.html#a251b1d8e3bed8986354895d15f705a75',1,'quit_game(int ch, WINDOW *message_win):&#160;map.c']]]
 ];

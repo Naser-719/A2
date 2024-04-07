@@ -4,8 +4,6 @@
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-struct timespec \mbox{\hyperlink{map_8c_adf12c6b80442578c6dd1fd6311b07fd0}{get\+\_\+mode\+\_\+delay}} (int mode)
-\item 
 void \mbox{\hyperlink{map_8c_aea9312c2a12fc8e9fef16a9bdfd9b581}{start\+Screen}} ()
 \item 
 void \mbox{\hyperlink{map_8c_af79d8158ee7772529e18c80072df4760}{save\+\_\+best\+\_\+time}} (int best\+Time)
@@ -30,7 +28,7 @@ void \mbox{\hyperlink{map_8c_a945c1ecf895c4c2dec31c0c6ef3c069c}{pause\+\_\+game}
 \begin{DoxyCompactItemize}
 \item 
 int \mbox{\hyperlink{map_8c_a6fc57573c49dd1bb33c63d80b0211fe5}{best\+\_\+time}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Stores the best time achieved across game sessions. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Function Documentation}
@@ -46,29 +44,48 @@ int \mbox{\hyperlink{map_8c_a6fc57573c49dd1bb33c63d80b0211fe5}{best\+\_\+time}}
 \subsubsection{\texorpdfstring{display\+\_\+window()}{display\_window()}}
 {\footnotesize\ttfamily void display\+\_\+window (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{win }\end{DoxyParamCaption})}
 
+Displays the game window, including the borders and any necessary UI components. This function refreshes the game window, updating any changes to the display.
+
+
+\begin{DoxyParams}{Parameters}
+{\em win} & The game window to be displayed and refreshed. \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{map_8c_ae39cae92bd484e7850ebc62066cd73b6}\label{map_8c_ae39cae92bd484e7850ebc62066cd73b6}} 
 \index{map.\+c@{map.\+c}!display\+Instructions@{display\+Instructions}}
 \index{display\+Instructions@{display\+Instructions}!map.\+c@{map.\+c}}
 \subsubsection{\texorpdfstring{display\+Instructions()}{displayInstructions()}}
 {\footnotesize\ttfamily void display\+Instructions (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{win,  }\item[{char}]{power\+\_\+up }\end{DoxyParamCaption})}
 
+Displays the game instructions in the specified window. Instructions vary depending on the current power-\/up status.
+
+
+\begin{DoxyParams}{Parameters}
+{\em win} & The window where the instructions will be displayed. \\
+\hline
+{\em power\+\_\+up} & The current power-\/up character indicating the state (\textquotesingle{}i\textquotesingle{} for immunity, \textquotesingle{}s\textquotesingle{} for slow mode, etc.). \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{map_8c_ad7424fa7c32d3683ccc0142a3b12a3f8}\label{map_8c_ad7424fa7c32d3683ccc0142a3b12a3f8}} 
 \index{map.\+c@{map.\+c}!game\+\_\+loop@{game\+\_\+loop}}
 \index{game\+\_\+loop@{game\+\_\+loop}!map.\+c@{map.\+c}}
 \subsubsection{\texorpdfstring{game\+\_\+loop()}{game\_loop()}}
 {\footnotesize\ttfamily void game\+\_\+loop (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{game\+\_\+win,  }\item[{W\+I\+N\+D\+OW $\ast$}]{message\+\_\+win }\end{DoxyParamCaption})}
 
+The main loop of the game, handling game logic, user input, and rendering. This function is the core of the game\textquotesingle{}s execution, managing game states and interactions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em game\+\_\+win} & The main game window where the gameplay is displayed. \\
+\hline
+{\em message\+\_\+win} & The window for displaying messages and instructions to the player. \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{map_8c_a0574fd2dd5fe324cfa31316cf29e4bb6}\label{map_8c_a0574fd2dd5fe324cfa31316cf29e4bb6}} 
 \index{map.\+c@{map.\+c}!game\+Over@{game\+Over}}
 \index{game\+Over@{game\+Over}!map.\+c@{map.\+c}}
 \subsubsection{\texorpdfstring{game\+Over()}{gameOver()}}
 {\footnotesize\ttfamily void game\+Over (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{message\+\_\+win,  }\item[{int}]{total\+\_\+time }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{map_8c_adf12c6b80442578c6dd1fd6311b07fd0}\label{map_8c_adf12c6b80442578c6dd1fd6311b07fd0}} 
-\index{map.\+c@{map.\+c}!get\+\_\+mode\+\_\+delay@{get\+\_\+mode\+\_\+delay}}
-\index{get\+\_\+mode\+\_\+delay@{get\+\_\+mode\+\_\+delay}!map.\+c@{map.\+c}}
-\subsubsection{\texorpdfstring{get\+\_\+mode\+\_\+delay()}{get\_mode\_delay()}}
-{\footnotesize\ttfamily struct timespec get\+\_\+mode\+\_\+delay (\begin{DoxyParamCaption}\item[{int}]{mode }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{map_8c_a790c86a091a8ebc001a16a844b5b6327}\label{map_8c_a790c86a091a8ebc001a16a844b5b6327}} 
 \index{map.\+c@{map.\+c}!load\+\_\+best\+\_\+time@{load\+\_\+best\+\_\+time}}
@@ -76,18 +93,42 @@ int \mbox{\hyperlink{map_8c_a6fc57573c49dd1bb33c63d80b0211fe5}{best\+\_\+time}}
 \subsubsection{\texorpdfstring{load\+\_\+best\+\_\+time()}{load\_best\_time()}}
 {\footnotesize\ttfamily int load\+\_\+best\+\_\+time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+Loads the best time from a file. \begin{DoxyReturn}{Returns}
+The best time loaded from the file or -\/1 if the file doesn\textquotesingle{}t exist or can\textquotesingle{}t be opened. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{map_8c_a945c1ecf895c4c2dec31c0c6ef3c069c}\label{map_8c_a945c1ecf895c4c2dec31c0c6ef3c069c}} 
 \index{map.\+c@{map.\+c}!pause\+\_\+game@{pause\+\_\+game}}
 \index{pause\+\_\+game@{pause\+\_\+game}!map.\+c@{map.\+c}}
 \subsubsection{\texorpdfstring{pause\+\_\+game()}{pause\_game()}}
 {\footnotesize\ttfamily void pause\+\_\+game (\begin{DoxyParamCaption}\item[{int}]{ch,  }\item[{W\+I\+N\+D\+OW $\ast$}]{message\+\_\+win }\end{DoxyParamCaption})}
 
+Pauses the game until the user decides to continue. This function displays a pause message and waits for user input to resume the game.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ch} & The character input by the user, used to pause or resume the game. \\
+\hline
+{\em message\+\_\+win} & The window where the pause message is displayed. \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{map_8c_a251b1d8e3bed8986354895d15f705a75}\label{map_8c_a251b1d8e3bed8986354895d15f705a75}} 
 \index{map.\+c@{map.\+c}!quit\+\_\+game@{quit\+\_\+game}}
 \index{quit\+\_\+game@{quit\+\_\+game}!map.\+c@{map.\+c}}
 \subsubsection{\texorpdfstring{quit\+\_\+game()}{quit\_game()}}
 {\footnotesize\ttfamily bool quit\+\_\+game (\begin{DoxyParamCaption}\item[{int}]{ch,  }\item[{W\+I\+N\+D\+OW $\ast$}]{message\+\_\+win }\end{DoxyParamCaption})}
 
+Handles the logic for quitting the game based on user input. If the user chooses to quit, this function updates the game state accordingly.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ch} & The character input by the user, used to determine if quitting was requested. \\
+\hline
+{\em message\+\_\+win} & The window where the quit confirmation message is displayed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns true if the user confirms to quit the game, otherwise false. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{map_8c_af79d8158ee7772529e18c80072df4760}\label{map_8c_af79d8158ee7772529e18c80072df4760}} 
 \index{map.\+c@{map.\+c}!save\+\_\+best\+\_\+time@{save\+\_\+best\+\_\+time}}
 \index{save\+\_\+best\+\_\+time@{save\+\_\+best\+\_\+time}!map.\+c@{map.\+c}}
@@ -100,7 +141,7 @@ int \mbox{\hyperlink{map_8c_a6fc57573c49dd1bb33c63d80b0211fe5}{best\+\_\+time}}
 \subsubsection{\texorpdfstring{start\+Screen()}{startScreen()}}
 {\footnotesize\ttfamily void start\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-
+Initializes and displays the start screen of the game. The start screen includes the game title and a prompt to start the game. 
 
 \subsection{Variable Documentation}
 \mbox{\Hypertarget{map_8c_a6fc57573c49dd1bb33c63d80b0211fe5}\label{map_8c_a6fc57573c49dd1bb33c63d80b0211fe5}} 
@@ -108,4 +149,8 @@ int \mbox{\hyperlink{map_8c_a6fc57573c49dd1bb33c63d80b0211fe5}{best\+\_\+time}}
 \index{best\+\_\+time@{best\+\_\+time}!map.\+c@{map.\+c}}
 \subsubsection{\texorpdfstring{best\+\_\+time}{best\_time}}
 {\footnotesize\ttfamily int best\+\_\+time}
+
+
+
+Stores the best time achieved across game sessions. 
 

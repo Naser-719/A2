@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['delay',['DELAY',['../test__blocks_8c.html#a62249e384b997229a3e2ae74ade334e2',1,'test_blocks.c']]]
+  ['easy_5fmode_5fdelay_5fms',['EASY_MODE_DELAY_MS',['../map_8h.html#a1e9ed61b4c97b47b71206b929f53be0d',1,'map.h']]]
 ];
