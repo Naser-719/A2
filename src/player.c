@@ -1,4 +1,4 @@
-//Name: Mustafa Al-Hamadani, Naser Issa, Gurmehar Singh
+//!Name: Mustafa Al-Hamadani, Naser Issa, Gurmehar Singh
 #include "player.h"
 
 

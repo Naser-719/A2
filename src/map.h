@@ -1,3 +1,10 @@
+//!Name: Mustafa Al-Hamadani, Naser Issa, Gurmehar Singh
+
+/**
+ * @file map.h
+ * @brief Defines the functions for loading the game, game dynamics, as well as the main game_loop.
+ */
+
 #ifndef MAP_H
 #define MAP_H
 

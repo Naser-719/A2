@@ -1,3 +1,5 @@
+//!Name: Mustafa Al-Hamadani, Naser Issa, Gurmehar Singh
+
 /**
  * @file player.h
  * @brief Defines the structure and functions for the player character in the game.

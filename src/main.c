@@ -1,4 +1,5 @@
-//Name: Mustafa Al-Hamadani, Naser Issa, Gurmehar Singh
+//!Name: Mustafa Al-Hamadani, Naser Issa, Gurmehar Singh
+
 #include <ncurses.h>
 #include <stdlib.h> 
 #include <time.h> 

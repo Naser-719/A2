@@ -48,5 +48,8 @@ Mem_valgrind:
 Debugger:
 	gdb Debug
 
+clean_doc:
+	rm -f ../doc/html ../doc/latex
+
 doc:
 	doxygen ../doc/Doxyfile

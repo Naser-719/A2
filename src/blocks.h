@@ -1,5 +1,5 @@
-//Name: Mustafa Al-Hamadani, Naser Issa, Gurmehar Singh
-/*
+//!Name: Mustafa Al-Hamadani, Naser Issa, Gurmehar Singh
+/**
  * Function prototypes for block handling in the game Skyfall.
  * This header file contains the prototypes of functions used to
  * create, move, render, and detect collisions of falling blocks in the game.
