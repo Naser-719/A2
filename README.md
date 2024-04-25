@@ -6,7 +6,7 @@
 
 In **Skyfall**, players navigate through increasingly challenging environments, striving to dodge obstacles and reach safety. This text-based adventure is built within a 30x80 grid, optimizing gameplay for standard terminal windows.
 
-![Gameplay GIF](src/gameplay.gif)
+![Gameplay GIF](src/skyfall.gif)
 
 ## GAME PLAN
 
