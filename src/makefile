@@ -6,7 +6,7 @@ LDFLAGS=-lm -lc -lncurses -ltinfo
 
 
 OUTDIR = ../bin
-TARGET = $(OUTDIR)/appGame
+TARGET = $(OUTDIR)/skyfall
 
 OBJS= player.o main.o blocks.o  map.o
 
@@ -15,7 +15,7 @@ all: $(TARGET)
 
 $(TARGET): $(OBJS)
 	mkdir -p $(OUTDIR)
-	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@ 
+	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@ 
 	
 main.o: main.c 
 	$(CC) $(CFLAGS) -c $<
