@@ -33,5 +33,7 @@ At launch, **Skyfall** greets players with a home screen, featuring the game tit
 - **Pause:** "p" halts the game, resuming only upon a subsequent "p" press.
 - **Quit:** "q" triggers a prompt for exiting; "y" confirms, while "n" continues the adventure.
 
+NOTE: Makefile in /src creates the output file in the bin folder. To run the game after compilation run '../bin/./skyfall'.
+
 Embark on a journey of agility and strategy in **Skyfall**, where every second counts toward ultimate survival.
 
